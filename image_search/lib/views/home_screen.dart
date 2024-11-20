@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:image_search/data/api/api_service.dart';
+import 'package:image_search/data/api/photo_provider.dart';
 import 'package:image_search/models/photo_model.dart';
 import 'package:image_search/widgets/photo_card_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<PhotoModel> _photos = [];
   final TextEditingController _controller = TextEditingController();
 
   @override
@@ -27,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final PhotoProvider photoProvider = PhotoProvider.of(context);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -48,28 +52,35 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   suffixIcon: IconButton(
                       onPressed: () async {
-                        final result =
-                            await PixabayApi.getPhotos(_controller.text);
-                        setState(() {
-                          _photos = result;
-                        });
+                        photoProvider.fetch(_controller.text);
                       },
                       icon: const Icon(Icons.search))),
             ),
           ),
-          Expanded(
-            child: GridView.builder(
-                padding: const EdgeInsets.all(16),
-                itemCount: _photos.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                ),
-                itemBuilder: (context, index) {
-                  return PhotoCard(photo: _photos[index]);
-                }),
-          )
+          StreamBuilder<List<PhotoModel>>(
+              // 스트림을 통해 값을 받아와야 함
+              stream: photoProvider.photosStream,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const CircularProgressIndicator();
+                }
+                final photos = snapshot.data!;
+
+                return Expanded(
+                  child: GridView.builder(
+                      padding: const EdgeInsets.all(16),
+                      itemCount: photos.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                      ),
+                      itemBuilder: (context, index) {
+                        return PhotoCard(photo: photos[index]);
+                      }),
+                );
+              })
         ],
       ),
     );

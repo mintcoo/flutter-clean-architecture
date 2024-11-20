@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class PixabayApi {
   // 사진들 가져오기
-  static Future<List<PhotoModel>> getPhotos(String query) async {
+  Future<List<PhotoModel>> getPhotos(String query) async {
     await dotenv.load();
     String baseUrl = dotenv.get("BASE_URL");
     String key = dotenv.get("PIXABAY_API_KEY");
