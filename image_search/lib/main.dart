@@ -3,6 +3,7 @@ import 'package:image_search/data/api/pixabay_api.dart';
 import 'package:image_search/data/photo_provider.dart';
 import 'package:image_search/views/home_screen.dart';
 import 'package:image_search/views/home_view_model.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,8 +21,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: PhotoProvider(
-          viewModel: HomeViewModel(PixabayApi()),
+        home: Provider(
+          create: (_) => HomeViewModel(PixabayApi()),
           child: const HomeScreen(),
         ));
   }

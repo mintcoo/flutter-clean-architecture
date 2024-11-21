@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:image_search/data/api/pixabay_api.dart';
 import 'package:image_search/data/photo_provider.dart';
 import 'package:image_search/models/photo_model.dart';
+import 'package:image_search/views/home_view_model.dart';
 import 'package:image_search/widgets/photo_card_widget.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -29,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = PhotoProvider.of(context).viewModel;
+    final viewModel = context.watch<HomeViewModel>();
 
     return Scaffold(
       appBar: AppBar(
