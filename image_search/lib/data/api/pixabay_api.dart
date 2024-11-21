@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:image_search/data/photo_api_repository.dart';
 import 'package:image_search/models/photo_model.dart';
 import 'package:http/http.dart' as http;
 
-class PixabayApi {
+class PixabayApi implements PhotoApiRepository {
   // 사진들 가져오기
+  @override
   Future<List<PhotoModel>> getPhotos(String query) async {
     await dotenv.load();
     String baseUrl = dotenv.get("BASE_URL");

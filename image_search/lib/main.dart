@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:image_search/data/api/api_service.dart';
-import 'package:image_search/data/api/photo_provider.dart';
+import 'package:image_search/data/api/pixabay_api.dart';
+import 'package:image_search/data/photo_provider.dart';
 import 'package:image_search/views/home_screen.dart';
+import 'package:image_search/views/home_view_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: PhotoProvider(
-          api: PixabayApi(),
+          viewModel: HomeViewModel(PixabayApi()),
           child: const HomeScreen(),
         ));
   }

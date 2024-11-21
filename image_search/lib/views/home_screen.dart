@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:image_search/data/api/api_service.dart';
-import 'package:image_search/data/api/photo_provider.dart';
+import 'package:image_search/data/api/pixabay_api.dart';
+import 'package:image_search/data/photo_provider.dart';
 import 'package:image_search/models/photo_model.dart';
 import 'package:image_search/widgets/photo_card_widget.dart';
 
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final PhotoProvider photoProvider = PhotoProvider.of(context);
+    final viewModel = PhotoProvider.of(context).viewModel;
 
     return Scaffold(
       appBar: AppBar(
@@ -52,14 +52,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   suffixIcon: IconButton(
                       onPressed: () async {
-                        photoProvider.fetch(_controller.text);
+                        viewModel.fetch(_controller.text);
                       },
                       icon: const Icon(Icons.search))),
             ),
           ),
           StreamBuilder<List<PhotoModel>>(
               // 스트림을 통해 값을 받아와야 함
-              stream: photoProvider.photosStream,
+              stream: viewModel.photoStream,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return const CircularProgressIndicator();
