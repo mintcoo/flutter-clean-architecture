@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       icon: const Icon(Icons.search))),
             ),
           ),
-          StreamBuilder<List<PhotoModel>>(
+          StreamBuilder<List<Photo>>(
               // 스트림을 통해 값을 받아와야 함
               stream: viewModel.photoStream,
               builder: (context, snapshot) {

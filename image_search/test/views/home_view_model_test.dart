@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:image_search/data/api/pixabay_api.dart';
 import 'package:image_search/data/photo_api_repository.dart';
 import 'package:image_search/models/photo_model.dart';
 import 'package:image_search/views/home_view_model.dart';
@@ -14,8 +13,8 @@ void main() {
     expect(
       viewModel.photoStream,
       emitsInOrder([
-        isA<List<PhotoModel>>(), // 데이터가 들어 왔는지 체크
-        isA<List<PhotoModel>>(), // 데이터가 들어 왔는지 체크
+        isA<List<Photo>>(), // 데이터가 들어 왔는지 체크
+        isA<List<Photo>>(), // 데이터가 들어 왔는지 체크
       ]),
     );
   });
@@ -24,10 +23,10 @@ void main() {
 // 가짜 임의 데이터를 만들어서 테스트 (photoApiRepository 에서 상속을 받기 떄문에 가짜 데이터를 만들어야 함)
 class FakePhotoApiRepository extends PhotoApiRepository {
   @override
-  Future<List<PhotoModel>> getPhotos(String query) async {
+  Future<List<Photo>> getPhotos(String query) async {
     Future.delayed(const Duration(milliseconds: 500));
 
-    return fakeJson.map((json) => PhotoModel.fromJson(json)).toList();
+    return fakeJson.map((json) => Photo.fromJson(json)).toList();
   }
 }
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_search/models/photo_model.dart';
 
 class PhotoCard extends StatelessWidget {
-  final PhotoModel photo;
+  final Photo photo;
 
   const PhotoCard({
     required this.photo,
@@ -17,7 +17,7 @@ class PhotoCard extends StatelessWidget {
         color: Colors.grey,
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: NetworkImage(photo.webformatURL),
+          image: NetworkImage(photo.webformatUrl),
         ),
       ),
     );

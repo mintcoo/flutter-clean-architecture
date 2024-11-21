@@ -35,6 +35,7 @@ void main() {
       result.first.id,
       8618301,
     );
+
     // 실제로 동작이 잘 되었는지도 검증
     verify(
       client.get(

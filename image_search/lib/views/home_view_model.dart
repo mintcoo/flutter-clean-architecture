@@ -7,8 +7,8 @@ class HomeViewModel {
   HomeViewModel(this.repository);
   // 사진들을 스트림으로 전달하는 곳, 외부에서는 스트림을 통해서 변경사항을 체크
   // ..add([]) 초기값 설정
-  final photoStreamController = StreamController<List<PhotoModel>>()..add([]);
-  Stream<List<PhotoModel>> get photoStream => photoStreamController.stream;
+  final photoStreamController = StreamController<List<Photo>>()..add([]);
+  Stream<List<Photo>> get photoStream => photoStreamController.stream;
 
   // 사진 가져와서 photoStreamController에 추가
   Future<void> fetch(String query) async {
