@@ -32,7 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<HomeViewModel>();
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -59,30 +58,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       icon: const Icon(Icons.search))),
             ),
           ),
-          StreamBuilder<List<Photo>>(
-              // 스트림을 통해 값을 받아와야 함
-              stream: viewModel.photoStream,
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return const CircularProgressIndicator();
-                }
-                final photos = snapshot.data!;
-
-                return Expanded(
-                  child: GridView.builder(
-                      padding: const EdgeInsets.all(16),
-                      itemCount: photos.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
-                      ),
-                      itemBuilder: (context, index) {
-                        return PhotoCard(photo: photos[index]);
-                      }),
-                );
-              })
+          // Consumer를 사용하면 변경사항을 알려줌으로써 UI를 새로 렌더링 << 성능을 우선하여 특정 부분만 재렌더링 하는 방법이긴 한데
+          // 그냥 굳이 이렇게 안하고 뭐 전체적으로 viewModel을 watch하면서 페이지 전체 재렌더링해도 크게 성능 빠르기 때문에 가독성을 우선시 하는지 선택
+          Expanded(
+            child: GridView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: viewModel.photos.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                ),
+                itemBuilder: (context, index) {
+                  return PhotoCard(photo: viewModel.photos[index]);
+                }),
+          ),
         ],
       ),
     );

@@ -8,14 +8,12 @@ void main() {
     final viewModel = HomeViewModel(FakePhotoApiRepository());
 
     await viewModel.fetch("cat");
-    await viewModel.fetch("apple");
 
+    print('Photos 길이: ${viewModel.photos.length}');
+    print('Photos 내용: ${viewModel.photos}');
     expect(
-      viewModel.photoStream,
-      emitsInOrder([
-        isA<List<Photo>>(), // 데이터가 들어 왔는지 체크
-        isA<List<Photo>>(), // 데이터가 들어 왔는지 체크
-      ]),
+      viewModel.photos.length,
+      2,
     );
   });
 }
@@ -24,7 +22,7 @@ void main() {
 class FakePhotoApiRepository extends PhotoApiRepository {
   @override
   Future<List<Photo>> getPhotos(String query) async {
-    Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
 
     return fakeJson.map((json) => Photo.fromJson(json)).toList();
   }
