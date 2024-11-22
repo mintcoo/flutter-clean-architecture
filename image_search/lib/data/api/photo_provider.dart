@@ -1,7 +1,6 @@
 // import 'package:flutter/material.dart';
-// import 'package:image_search/views/home_view_model.dart';
+// import 'package:image_search/views/home/home_view_model.dart';
 
-// // Provider 라이브러리 사용하면서 안써도 됨
 // // 원하는 객체를 원하는 위젯으로 전달하는 곳
 // class PhotoProvider extends InheritedWidget {
 //   final HomeViewModel viewModel;

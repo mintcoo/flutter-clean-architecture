@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:collection';
 import 'package:flutter/material.dart';
-import 'package:image_search/data/photo_api_repository.dart';
-import 'package:image_search/models/photo_model.dart';
+import 'package:image_search/domain/models/repository/photo_api_repository.dart';
+import 'package:image_search/domain/models/photo_model.dart';
 
 // ChangeNotifier 사용하면서 우선 기존 코드는 주석
 // class HomeViewModel {

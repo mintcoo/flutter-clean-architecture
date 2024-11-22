@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:image_search/data/api/pixabay_api.dart';
-import 'package:image_search/data/photo_provider.dart';
-import 'package:image_search/views/home_screen.dart';
-import 'package:image_search/views/home_view_model.dart';
+import 'package:image_search/data/repository/photo_api_repository_impl.dart';
+import 'package:image_search/views/home/home_screen.dart';
+import 'package:image_search/views/home/home_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
       ),
       // ChangeNotifierProvider를 사용하면 변경사항을 알려줌으로써 UI를 새로 렌더링
       home: ChangeNotifierProvider(
-        create: (_) => HomeViewModel(PixabayApi()),
+        create: (_) => HomeViewModel(
+            PhotoApiRepositoryImpl(api: PixabayApi(http.Client()))),
         child: const HomeScreen(),
       ),
     );

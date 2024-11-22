@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:image_search/data/photo_api_repository.dart';
-import 'package:image_search/models/photo_model.dart';
-import 'package:image_search/views/home_view_model.dart';
+import 'package:image_search/domain/models/repository/photo_api_repository.dart';
+import 'package:image_search/domain/models/photo_model.dart';
+import 'package:image_search/views/home/home_view_model.dart';
 
 void main() {
   test("Stream이 잘 동작해야한다", () async {
