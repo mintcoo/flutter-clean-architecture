@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:image_search/views/home/home_view_model.dart';
 import 'package:image_search/views/home/components/photo_card_widget.dart';
@@ -14,15 +16,29 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _controller = TextEditingController();
+  StreamSubscription? _eventSubscription;
 
   @override
   void initState() {
     super.initState();
+
+    // 홈 화면에서 에러 표시해주는 이벤트 스트림 컨트롤러 구독
+    final viewModel = context.read<HomeViewModel>();
+    _eventSubscription = viewModel.eventStream.listen((event) {
+      event.when(showError: (message) {
+        print(message);
+        // 스낵바 만들어서 에러 표시
+        final snackBar = SnackBar(content: Text(message));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      });
+    });
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    // 계속 리슨을 하면 안되니 dispose할 때 구독 해제
+    _eventSubscription?.cancel();
     super.dispose();
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:image_search/data/api/result.dart';
 import 'package:image_search/domain/models/repository/photo_api_repository.dart';
 import 'package:image_search/domain/models/photo_model.dart';
 import 'package:image_search/views/home/home_view_model.dart';
@@ -21,10 +22,11 @@ void main() {
 // 가짜 임의 데이터를 만들어서 테스트 (photoApiRepository 에서 상속을 받기 떄문에 가짜 데이터를 만들어야 함)
 class FakePhotoApiRepository extends PhotoApiRepository {
   @override
-  Future<List<Photo>> getPhotos(String query) async {
+  Future<Result<List<Photo>>> getPhotos(String query) async {
     await Future.delayed(const Duration(milliseconds: 500));
 
-    return fakeJson.map((json) => Photo.fromJson(json)).toList();
+    return Result.success(
+        fakeJson.map((json) => Photo.fromJson(json)).toList());
   }
 }
 

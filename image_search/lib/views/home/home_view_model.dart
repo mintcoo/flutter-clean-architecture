@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:collection';
 import 'package:flutter/material.dart';
+import 'package:image_search/data/api/result.dart';
 import 'package:image_search/domain/models/repository/photo_api_repository.dart';
 import 'package:image_search/domain/models/photo_model.dart';
+import 'package:image_search/views/home/home_error_event.dart';
 
 // ChangeNotifier 사용하면서 우선 기존 코드는 주석
 // class HomeViewModel {
@@ -31,10 +33,22 @@ class HomeViewModel extends ChangeNotifier {
   // 이런식으로 하면 외부에서 수정을 하려면 에러가 발생하도록 아래 코드처럼 사용 가능
   UnmodifiableListView<Photo> get photos => UnmodifiableListView(_photos);
 
+  // 에러 이벤트 스트림 컨트롤러 -> 이걸 홈 화면에 띄워줘야 한다
+  final _eventController = StreamController<HomeErrorEvent>();
+  Stream<HomeErrorEvent> get eventStream => _eventController.stream;
+
   Future<void> fetch(String query) async {
-    final result = await repository.getPhotos(query);
-    _photos = result;
-    // 변경사항을 알려줌으로써 UI를 새로 렌더링
-    notifyListeners();
+    final Result<List<Photo>> result = await repository.getPhotos(query);
+    result.when(
+      success: (photos) {
+        _photos = photos;
+        // 변경사항을 알려줌으로써 UI를 새로 렌더링
+        notifyListeners();
+      },
+      error: (message) {
+        print(message);
+        _eventController.add(HomeErrorEvent.showError(message));
+      },
+    );
   }
 }

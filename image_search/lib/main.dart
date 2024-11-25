@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image_search/data/api/pixabay_api.dart';
 import 'package:image_search/data/repository/photo_api_repository_impl.dart';
 import 'package:image_search/views/home/home_screen.dart';
@@ -6,7 +7,8 @@ import 'package:image_search/views/home/home_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
-void main() {
+void main() async {
+  await dotenv.load();
   runApp(const MyApp());
 }
 

@@ -1,7 +1,9 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_search/data/api/pixabay_api.dart';
+import 'package:image_search/data/api/result.dart';
 import 'package:image_search/data/repository/photo_api_repository_impl.dart';
+import 'package:image_search/domain/models/photo_model.dart';
 import 'package:mockito/annotations.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
@@ -27,11 +29,11 @@ void main() {
     ).thenAnswer((_) async => http.Response(fakeJsonBody, 200));
 
     // 테스트 대상 메서드 호출
-    final result = await api.getPhotos("cat");
+    final Result<List<Photo>> result = await api.getPhotos("cat");
 
     // 테스트 결과 검증
     expect(
-      result.first.id,
+      (result as Success).data.first.id,
       8618301,
     );
   });
