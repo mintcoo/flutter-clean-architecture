@@ -2,18 +2,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:image_search/data/api/result.dart';
 import 'package:image_search/domain/models/repository/photo_api_repository.dart';
 import 'package:image_search/domain/models/photo_model.dart';
+import 'package:image_search/domain/use_case/get_photos_use_case.dart';
 import 'package:image_search/views/home/home_view_model.dart';
 
 void main() {
   test("Stream이 잘 동작해야한다", () async {
-    final viewModel = HomeViewModel(FakePhotoApiRepository());
+    final viewModel = HomeViewModel(GetPhotosUseCase(FakePhotoApiRepository()));
 
     await viewModel.fetch("cat");
 
-    print('Photos 길이: ${viewModel.photos.length}');
-    print('Photos 내용: ${viewModel.photos}');
+    print('Photos 길이: ${viewModel.state.photos.length}');
+    print('Photos 내용: ${viewModel.state.photos}');
     expect(
-      viewModel.photos.length,
+      viewModel.state.photos.length,
       2,
     );
   });

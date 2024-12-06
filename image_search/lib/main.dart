@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:image_search/data/api/pixabay_api.dart';
-import 'package:image_search/data/repository/photo_api_repository_impl.dart';
+import 'package:image_search/di/provider_setup.dart';
 import 'package:image_search/views/home/home_screen.dart';
-import 'package:image_search/views/home/home_view_model.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 
 void main() async {
   await dotenv.load();
-  runApp(const MyApp());
+  runApp(
+    // 프로바이더 정리한 걸 여기서 세팅
+    MultiProvider(
+      providers: globalProviders,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -25,11 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // ChangeNotifierProvider를 사용하면 변경사항을 알려줌으로써 UI를 새로 렌더링
-      home: ChangeNotifierProvider(
-        create: (_) => HomeViewModel(
-            PhotoApiRepositoryImpl(api: PixabayApi(http.Client()))),
-        child: const HomeScreen(),
-      ),
+      home: const HomeScreen(),
     );
   }
 }

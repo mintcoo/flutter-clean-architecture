@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image_search/data/api/pixabay_api.dart';
 import 'package:image_search/data/api/result.dart';
 import 'package:image_search/domain/models/repository/photo_api_repository.dart';
