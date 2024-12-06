@@ -1,3 +1,4 @@
+import 'package:note_app/data/data_source/note_db.dart';
 import 'package:note_app/domain/models/note_model.dart';
 import 'package:note_app/domain/repository/note_repository.dart';
 
@@ -5,6 +6,10 @@ import 'package:note_app/domain/repository/note_repository.dart';
 // 이렇게 만들고 NoteRepositoryImple에서 ctrl + . 하면 자동으로 미구현된 메서드 생성
 
 class NoteRepositoryImple implements NoteRepository {
+  final NoteDb noteDb;
+
+  NoteRepositoryImple(this.noteDb);
+
   @override
   Future<List<Note>> getNotes() {
     // TODO: implement getNotes
