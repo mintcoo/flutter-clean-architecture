@@ -11,32 +11,27 @@ class NoteRepositoryImple implements NoteRepository {
   NoteRepositoryImple(this.noteDb);
 
   @override
-  Future<List<Note>> getNotes() {
-    // TODO: implement getNotes
-    throw UnimplementedError();
+  Future<List<Note>> getNotes() async {
+    return await noteDb.getNotes();
   }
 
   @override
-  Future<Note> getNoteDetail(int id) {
-    // TODO: implement getNoteDetail
-    throw UnimplementedError();
+  Future<Note> getNoteDetail(int id) async {
+    return await noteDb.getNoteDetail(id);
   }
 
   @override
-  Future<void> createNote(Note note) {
-    // TODO: implement createNote
-    throw UnimplementedError();
+  Future<void> createNote(Note note) async {
+    await noteDb.createNote(note);
   }
 
   @override
-  Future<void> deleteNote(int id) {
-    // TODO: implement deleteNote
-    throw UnimplementedError();
+  Future<void> deleteNote(int id) async {
+    await noteDb.deleteNote(id);
   }
 
   @override
-  Future<void> updateNote(Note note) {
-    // TODO: implement updateNote
-    throw UnimplementedError();
+  Future<void> updateNote(Note note) async {
+    await noteDb.updateNote(note);
   }
 }
