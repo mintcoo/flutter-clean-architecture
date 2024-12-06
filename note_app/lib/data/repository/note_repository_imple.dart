@@ -6,32 +6,32 @@ import 'package:note_app/domain/repository/note_repository.dart';
 // 이렇게 만들고 NoteRepositoryImple에서 ctrl + . 하면 자동으로 미구현된 메서드 생성
 
 class NoteRepositoryImple implements NoteRepository {
-  final NoteDb noteDb;
+  final NoteDb db;
 
-  NoteRepositoryImple(this.noteDb);
+  NoteRepositoryImple(this.db);
 
   @override
   Future<List<Note>> getNotes() async {
-    return await noteDb.getNotes();
+    return await db.getNotes();
   }
 
   @override
   Future<Note> getNoteDetail(int id) async {
-    return await noteDb.getNoteDetail(id);
+    return await db.getNoteDetail(id);
   }
 
   @override
   Future<void> createNote(Note note) async {
-    await noteDb.createNote(note);
+    await db.createNote(note);
   }
 
   @override
   Future<void> deleteNote(int id) async {
-    await noteDb.deleteNote(id);
+    await db.deleteNote(id);
   }
 
   @override
   Future<void> updateNote(Note note) async {
-    await noteDb.updateNote(note);
+    await db.updateNote(note);
   }
 }
