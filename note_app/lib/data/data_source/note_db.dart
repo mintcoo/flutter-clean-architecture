@@ -46,11 +46,11 @@ class NoteDb {
     );
   }
 
-  Future<void> deleteNote(int id) async {
+  Future<void> deleteNote(Note note) async {
     await db.delete(
       "note",
       where: "id = ?",
-      whereArgs: [id],
+      whereArgs: [note.id],
     );
   }
 }

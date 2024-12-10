@@ -26,8 +26,8 @@ class NoteRepositoryImple implements NoteRepository {
   }
 
   @override
-  Future<void> deleteNote(int id) async {
-    await db.deleteNote(id);
+  Future<void> deleteNote(Note note) async {
+    await db.deleteNote(note);
   }
 
   @override

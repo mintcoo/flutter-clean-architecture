@@ -9,5 +9,5 @@ abstract class NoteRepository {
 
   Future<void> updateNote(Note note);
 
-  Future<void> deleteNote(int id);
+  Future<void> deleteNote(Note note);
 }
