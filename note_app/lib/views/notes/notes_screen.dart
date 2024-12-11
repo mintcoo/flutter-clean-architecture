@@ -1,12 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:note_app/components/notes/note_card.dart';
 import 'package:note_app/domain/models/note_model.dart';
 import 'package:note_app/ui/colors.dart';
+import 'package:go_router/go_router.dart';
 
 class NoteScreen extends StatelessWidget {
   const NoteScreen({super.key});
+
+  void onClickAdd(BuildContext context) {
+    context.push('/note');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +29,7 @@ class NoteScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => {},
             icon: const Icon(
               Icons.sort,
             ),
@@ -31,7 +38,7 @@ class NoteScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => onClickAdd(context),
         child: const Icon(
           Icons.add,
         ),

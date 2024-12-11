@@ -39,6 +39,7 @@ dependencies:
   json_annotation: ^4.9.0
   freezed_annotation: ^2.4.4
   flutter_screenutil: ^5.9.3
+  go_router: ^14.6.0
 
 dev_dependencies:
   flutter_test:
