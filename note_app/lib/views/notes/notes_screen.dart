@@ -47,7 +47,7 @@ class NoteScreen extends StatelessWidget {
               note: Note(
                 title: 'title',
                 content: 'content',
-                color: 0xFF707070,
+                color: roseBud.value,
                 createdAt: DateTime.now().millisecondsSinceEpoch,
               ),
             ),
