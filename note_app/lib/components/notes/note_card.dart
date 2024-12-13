@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:note_app/domain/models/note_model.dart';
 
 class NoteCard extends StatelessWidget {
@@ -17,6 +18,7 @@ class NoteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 8.h),
       width: double.infinity,
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(

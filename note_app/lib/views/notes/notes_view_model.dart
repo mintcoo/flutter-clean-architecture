@@ -17,7 +17,10 @@ class NotesViewModel with ChangeNotifier {
   // List<Note> _notes = [];
   // UnmodifiableListView<Note> get notes => UnmodifiableListView(_notes);
 
-  NotesViewModel(this.repository);
+  NotesViewModel(this.repository) {
+    // 초기화 할 때 데이터를 읽어오는 함수를 호출
+    _loadNotes();
+  }
 
   void onEvent(NotesEvent event) {
     //freezed를 사용하여 만들어진 이벤트는 when 함수를 제공

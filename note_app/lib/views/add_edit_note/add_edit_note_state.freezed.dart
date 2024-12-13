@@ -14,15 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-AddEditNoteState _$AddEditNoteStateFromJson(Map<String, dynamic> json) {
-  return _AddEditNoteState.fromJson(json);
-}
-
 /// @nodoc
 mixin _$AddEditNoteState {
   Note get note => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AddEditNoteStateCopyWith<AddEditNoteState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -108,14 +103,11 @@ class __$$AddEditNoteStateImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$AddEditNoteStateImpl
     with DiagnosticableTreeMixin
     implements _AddEditNoteState {
   const _$AddEditNoteStateImpl({required this.note});
-
-  factory _$AddEditNoteStateImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AddEditNoteStateImplFromJson(json);
 
   @override
   final Note note;
@@ -141,7 +133,6 @@ class _$AddEditNoteStateImpl
             (identical(other.note, note) || other.note == note));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, note);
 
@@ -151,21 +142,11 @@ class _$AddEditNoteStateImpl
   _$$AddEditNoteStateImplCopyWith<_$AddEditNoteStateImpl> get copyWith =>
       __$$AddEditNoteStateImplCopyWithImpl<_$AddEditNoteStateImpl>(
           this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AddEditNoteStateImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class _AddEditNoteState implements AddEditNoteState {
   const factory _AddEditNoteState({required final Note note}) =
       _$AddEditNoteStateImpl;
-
-  factory _AddEditNoteState.fromJson(Map<String, dynamic> json) =
-      _$AddEditNoteStateImpl.fromJson;
 
   @override
   Note get note;

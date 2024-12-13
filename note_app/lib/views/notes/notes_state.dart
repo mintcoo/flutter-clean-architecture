@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:note_app/domain/models/note_model.dart';
 
 part 'notes_state.freezed.dart';
-part 'notes_state.g.dart';
 
+// 결국 이렇게 상태관리 하는 이유는 뷰모델 내부에서 외부에 공개하는 데이터들은 다 읽기 전용, 불변객체로 만들자
 @freezed
 class NoteState with _$NoteState {
   const factory NoteState({
@@ -12,7 +12,4 @@ class NoteState with _$NoteState {
     @Default([]) List<Note> notes,
     // required List<Note> notes,
   }) = _NoteState;
-
-  factory NoteState.fromJson(Map<String, dynamic> json) =>
-      _$NoteStateFromJson(json);
 }

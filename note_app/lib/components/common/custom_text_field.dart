@@ -6,12 +6,14 @@ class CustomTextField extends StatefulWidget {
   final String? placeholder;
   final double? fontSize;
   final int? maxLines;
+  final TextEditingController? controller;
 
   const CustomTextField({
     super.key,
     this.placeholder,
     this.fontSize,
     this.maxLines,
+    this.controller,
   });
 
   @override
@@ -19,19 +21,10 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  final TextEditingController _textController = TextEditingController();
-
-  @override
-  void dispose() {
-    // 컨트롤러 달아주면 화면 닫힐 때 꼭 제거해야함
-    _textController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: _textController,
+      controller: widget.controller,
       maxLines: widget.maxLines,
       style: TextStyle(
         fontSize: widget.fontSize ?? 16.sp,

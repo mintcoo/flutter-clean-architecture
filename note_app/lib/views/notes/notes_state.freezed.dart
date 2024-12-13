@@ -14,16 +14,11 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-NoteState _$NoteStateFromJson(Map<String, dynamic> json) {
-  return _NoteState.fromJson(json);
-}
-
 /// @nodoc
 mixin _$NoteState {
 // @default와 required를 같이 사용하면 오류가 발생
   List<Note> get notes => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $NoteStateCopyWith<NoteState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -95,12 +90,9 @@ class __$$NoteStateImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
   const _$NoteStateImpl({final List<Note> notes = const []}) : _notes = notes;
-
-  factory _$NoteStateImpl.fromJson(Map<String, dynamic> json) =>
-      _$$NoteStateImplFromJson(json);
 
 // @default와 required를 같이 사용하면 오류가 발생
   final List<Note> _notes;
@@ -134,7 +126,6 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
             const DeepCollectionEquality().equals(other._notes, _notes));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_notes));
@@ -144,20 +135,10 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
   @pragma('vm:prefer-inline')
   _$$NoteStateImplCopyWith<_$NoteStateImpl> get copyWith =>
       __$$NoteStateImplCopyWithImpl<_$NoteStateImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$NoteStateImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class _NoteState implements NoteState {
   const factory _NoteState({final List<Note> notes}) = _$NoteStateImpl;
-
-  factory _NoteState.fromJson(Map<String, dynamic> json) =
-      _$NoteStateImpl.fromJson;
 
   @override // @default와 required를 같이 사용하면 오류가 발생
   List<Note> get notes;

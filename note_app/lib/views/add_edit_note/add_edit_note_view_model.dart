@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:note_app/domain/models/note_model.dart';
 import 'package:note_app/domain/repository/note_repository.dart';
 import 'package:note_app/views/add_edit_note/add_edit_note_event.dart';
 import 'package:note_app/views/add_edit_note/add_edit_note_state.dart';
+import 'package:note_app/views/add_edit_note/add_edit_note_ui_event.dart';
 
 class AddEditNoteViewModel with ChangeNotifier {
   final NoteRepository repository;
@@ -15,8 +18,21 @@ class AddEditNoteViewModel with ChangeNotifier {
   int _bgColor = Colors.white.value;
   int get bgColor => _bgColor;
 
+  // 스트림 컨트롤러 이벤트 실시간 변경 감지 (타입이 UiEvent이다)
+  // broadcast 타입은 리슨을 여러번 할 수 있음
+  final _eventController = StreamController<AddEditNoteUiEvent>.broadcast();
+  Stream<AddEditNoteUiEvent> get eventStream => _eventController.stream;
+
+  // 생성자
   AddEditNoteViewModel(this.repository);
 
+  @override
+  void dispose() {
+    _eventController.close();
+    super.dispose();
+  }
+
+  // 이벤트 처리
   void onEvent(AddEditNoteEvent event) {
     event.when(
       changeColor: _changeColor,
@@ -35,6 +51,12 @@ class AddEditNoteViewModel with ChangeNotifier {
     String title,
     String content,
   ) async {
+    if (title.isEmpty || content.isEmpty) {
+      _eventController
+          .add(const AddEditNoteUiEvent.showSnackBar('제목과 내용을 입력해주세요.'));
+      return;
+    }
+
     if (id == null) {
       // + 버튼을 누르고 들어와서 id를 모를 땐 새로 추가의 개념
       await repository.createNote(
@@ -57,5 +79,6 @@ class AddEditNoteViewModel with ChangeNotifier {
         ),
       );
     }
+    _eventController.add(const AddEditNoteUiEvent.saveNote());
   }
 }

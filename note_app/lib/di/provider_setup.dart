@@ -13,8 +13,15 @@ Future<List<SingleChildWidget>> getProviders() async {
     "notes_db",
     version: 1,
     onCreate: (db, version) {
-      db.execute(
-          "CREATE TABLE note (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT, color INTEGER)");
+      db.execute('''
+          CREATE TABLE note (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT,
+            content TEXT,
+            color INTEGER,
+            createdAt INTEGER
+          )
+      ''');
     },
   );
 

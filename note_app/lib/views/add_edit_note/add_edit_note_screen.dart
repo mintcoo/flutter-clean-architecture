@@ -1,10 +1,20 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:note_app/components/common/custom_text_field.dart';
+import 'package:note_app/domain/models/note_model.dart';
 import 'package:note_app/ui/colors.dart';
+import 'package:note_app/views/add_edit_note/add_edit_note_event.dart';
+import 'package:note_app/views/add_edit_note/add_edit_note_view_model.dart';
+import 'package:provider/provider.dart';
 
 class AddEditNoteScreen extends StatefulWidget {
-  const AddEditNoteScreen({super.key});
+  // 노트를 클릭해서 수정할 때 받음
+  final Note? note;
+  const AddEditNoteScreen({super.key, this.note});
 
   // static const는 클래스 수준 상수, 모든 인스턴스가 공유하는 단 하나의 복사본이라
   // 인스턴스 생성없이 직접 접근 가능
@@ -22,14 +32,68 @@ class AddEditNoteScreen extends StatefulWidget {
 }
 
 class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
-  // 배경색
-  Color _bgColor = primRose;
+  final _titleController = TextEditingController();
+  final _contentController = TextEditingController();
+  StreamSubscription? _streamSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // initState 메서드 내에서 비동기 작업을 수행하기 위해 Future.microtask 사용
+    Future.microtask(() {
+      final viewModel = context.read<AddEditNoteViewModel>();
+      // 이벤트 스트림 리스너 추가
+      _streamSubscription = viewModel.eventStream.listen((event) {
+        event.when(
+          saveNote: () {
+            // 화면 닫아버리면서 true값이 넘어가면 save 버튼으로 넘어간 것 구분
+            context.pop(true);
+          },
+          // 스낵바 이벤트 발생시 띄우기
+          showSnackBar: (message) {
+            final snackBar = SnackBar(
+              content: Text(
+                message,
+              ),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          },
+        );
+      });
+    });
+
+    // 노트가 있으면 수정, 없으면 생성
+    if (widget.note != null) {
+      _titleController.text = widget.note!.title;
+      _contentController.text = widget.note!.content;
+    }
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _contentController.dispose();
+    // 계속 리슨하면안되고 캔슬해줘야함 화면 바뀔때
+    _streamSubscription?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<AddEditNoteViewModel>();
+    final state = viewModel.state;
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          viewModel.onEvent(AddEditNoteEvent.saveNote(
+            // 노트가 있으면 수정, 없으면 생성
+            widget.note?.id,
+            _titleController.text,
+            _contentController.text,
+          ));
+        },
         child: const Icon(
           Icons.save,
         ),
@@ -39,7 +103,7 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
         duration: const Duration(milliseconds: 200),
         padding: EdgeInsets.fromLTRB(16.w, 48.h, 16.w, 16.h),
         decoration: BoxDecoration(
-          color: _bgColor,
+          color: Color(viewModel.bgColor),
         ),
         child: Column(
           children: [
@@ -54,13 +118,12 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
                         .map(
                           (color) => GestureDetector(
                             onTap: () {
-                              setState(() {
-                                _bgColor = color;
-                              });
+                              viewModel.onEvent(
+                                  AddEditNoteEvent.changeColor(color.value));
                             },
                             child: NoteColor(
                               color: color,
-                              isSelected: _bgColor == color,
+                              isSelected: viewModel.bgColor == color.value,
                             ),
                           ),
                         )
@@ -70,10 +133,12 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
               ),
             ]),
             CustomTextField(
+              controller: _titleController,
               placeholder: '제목을 입력하세요.',
               fontSize: 22.sp,
             ),
             CustomTextField(
+              controller: _contentController,
               placeholder: '내용을 입력하세요.',
               fontSize: 16.sp,
             )
