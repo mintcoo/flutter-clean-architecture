@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:note_app/di/provider_setup.dart';
 import 'package:note_app/router.dart';
 import 'package:note_app/ui/colors.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  // Flutter 바인딩 초기화
+  // Flutter 앱이 네이티브 기능을 사용할 수 있도록(화면을 그리기 전에 세팅되는 것들) "준비 운동"을 시키는 과정
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 프로바이더 설정
+  final providers = await getProviders();
+
+  runApp(
+    MultiProvider(
+      providers: providers,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

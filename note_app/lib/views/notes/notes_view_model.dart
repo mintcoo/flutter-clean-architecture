@@ -30,7 +30,7 @@ class NotesViewModel with ChangeNotifier {
 
   Future<void> _loadNotes() async {
     List<Note> notes = await repository.getNotes();
-    _state = state.copyWith(notes: notes);
+    _state = _state.copyWith(notes: notes);
     notifyListeners();
   }
 

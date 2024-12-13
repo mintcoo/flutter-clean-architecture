@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:note_app/components/common/custom_text_field.dart';
 import 'package:note_app/ui/colors.dart';
 
-class AddEditNoteScreen extends StatelessWidget {
+class AddEditNoteScreen extends StatefulWidget {
   const AddEditNoteScreen({super.key});
 
   // static const는 클래스 수준 상수, 모든 인스턴스가 공유하는 단 하나의 복사본이라
@@ -11,11 +11,19 @@ class AddEditNoteScreen extends StatelessWidget {
   // 단 한번만 컴파일 타임에 할당이라 메모리 효율적
   static const List<Color> noteColors = [
     roseBud,
-    primRose,
+    lightBlue,
     blueGrey,
     amber,
-    deepBlue,
+    lightGreen,
   ];
+
+  @override
+  State<AddEditNoteScreen> createState() => _AddEditNoteScreenState();
+}
+
+class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
+  // 배경색
+  Color _bgColor = primRose;
 
   @override
   Widget build(BuildContext context) {
@@ -26,26 +34,39 @@ class AddEditNoteScreen extends StatelessWidget {
           Icons.save,
         ),
       ),
-      body: Container(
-        padding: EdgeInsets.all(16.r),
-        decoration: const BoxDecoration(
-          color: primRose,
+      // 배경색 자연스럽게 변하는 효과 주기위해 Container 대신 AnimatedContainer 사용
+      body: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: EdgeInsets.fromLTRB(16.w, 48.h, 16.w, 16.h),
+        decoration: BoxDecoration(
+          color: _bgColor,
         ),
         child: Column(
           children: [
             Row(children: [
-              // noteColors.map((color) => Container(
-              //   width: 30.r,
-              //   height: 30.r,
-              //   color: color,
-              // )).toList(),
-              Container(
-                decoration: BoxDecoration(
-                  color: noteColors[0],
-                  borderRadius: BorderRadius.circular(8.r),
+              Expanded(
+                child: SizedBox(
+                  height: 70.h,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: AddEditNoteScreen.noteColors
+                        // 색상 리스트 만들어 줌
+                        .map(
+                          (color) => GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _bgColor = color;
+                              });
+                            },
+                            child: NoteColor(
+                              color: color,
+                              isSelected: _bgColor == color,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
-                width: 30.r,
-                height: 30.r,
               ),
             ]),
             CustomTextField(
@@ -59,6 +80,33 @@ class AddEditNoteScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class NoteColor extends StatelessWidget {
+  final bool isSelected;
+  final Color color;
+
+  const NoteColor({
+    super.key,
+    required this.color,
+    required this.isSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: isSelected ? Colors.black : Colors.transparent,
+          width: 2.r,
+        ),
+      ),
+      width: 45.r,
+      height: 45.r,
     );
   }
 }
