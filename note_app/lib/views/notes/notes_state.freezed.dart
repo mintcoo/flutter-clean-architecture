@@ -18,6 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$NoteState {
 // @default와 required를 같이 사용하면 오류가 발생
   List<Note> get notes => throw _privateConstructorUsedError;
+  bool get isShowOrderDialog => throw _privateConstructorUsedError;
+  NoteOrder get noteOrder => throw _privateConstructorUsedError;
+  OrderDirection get orderDirection => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NoteStateCopyWith<NoteState> get copyWith =>
@@ -29,7 +32,11 @@ abstract class $NoteStateCopyWith<$Res> {
   factory $NoteStateCopyWith(NoteState value, $Res Function(NoteState) then) =
       _$NoteStateCopyWithImpl<$Res, NoteState>;
   @useResult
-  $Res call({List<Note> notes});
+  $Res call(
+      {List<Note> notes,
+      bool isShowOrderDialog,
+      NoteOrder noteOrder,
+      OrderDirection orderDirection});
 }
 
 /// @nodoc
@@ -46,12 +53,27 @@ class _$NoteStateCopyWithImpl<$Res, $Val extends NoteState>
   @override
   $Res call({
     Object? notes = null,
+    Object? isShowOrderDialog = null,
+    Object? noteOrder = null,
+    Object? orderDirection = null,
   }) {
     return _then(_value.copyWith(
       notes: null == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as List<Note>,
+      isShowOrderDialog: null == isShowOrderDialog
+          ? _value.isShowOrderDialog
+          : isShowOrderDialog // ignore: cast_nullable_to_non_nullable
+              as bool,
+      noteOrder: null == noteOrder
+          ? _value.noteOrder
+          : noteOrder // ignore: cast_nullable_to_non_nullable
+              as NoteOrder,
+      orderDirection: null == orderDirection
+          ? _value.orderDirection
+          : orderDirection // ignore: cast_nullable_to_non_nullable
+              as OrderDirection,
     ) as $Val);
   }
 }
@@ -64,7 +86,11 @@ abstract class _$$NoteStateImplCopyWith<$Res>
       __$$NoteStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Note> notes});
+  $Res call(
+      {List<Note> notes,
+      bool isShowOrderDialog,
+      NoteOrder noteOrder,
+      OrderDirection orderDirection});
 }
 
 /// @nodoc
@@ -79,12 +105,27 @@ class __$$NoteStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? notes = null,
+    Object? isShowOrderDialog = null,
+    Object? noteOrder = null,
+    Object? orderDirection = null,
   }) {
     return _then(_$NoteStateImpl(
       notes: null == notes
           ? _value._notes
           : notes // ignore: cast_nullable_to_non_nullable
               as List<Note>,
+      isShowOrderDialog: null == isShowOrderDialog
+          ? _value.isShowOrderDialog
+          : isShowOrderDialog // ignore: cast_nullable_to_non_nullable
+              as bool,
+      noteOrder: null == noteOrder
+          ? _value.noteOrder
+          : noteOrder // ignore: cast_nullable_to_non_nullable
+              as NoteOrder,
+      orderDirection: null == orderDirection
+          ? _value.orderDirection
+          : orderDirection // ignore: cast_nullable_to_non_nullable
+              as OrderDirection,
     ));
   }
 }
@@ -92,7 +133,12 @@ class __$$NoteStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
-  const _$NoteStateImpl({final List<Note> notes = const []}) : _notes = notes;
+  const _$NoteStateImpl(
+      {final List<Note> notes = const [],
+      this.isShowOrderDialog = false,
+      this.noteOrder = NoteOrder.date,
+      this.orderDirection = OrderDirection.ascending})
+      : _notes = notes;
 
 // @default와 required를 같이 사용하면 오류가 발생
   final List<Note> _notes;
@@ -106,8 +152,18 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
   }
 
   @override
+  @JsonKey()
+  final bool isShowOrderDialog;
+  @override
+  @JsonKey()
+  final NoteOrder noteOrder;
+  @override
+  @JsonKey()
+  final OrderDirection orderDirection;
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'NoteState(notes: $notes)';
+    return 'NoteState(notes: $notes, isShowOrderDialog: $isShowOrderDialog, noteOrder: $noteOrder, orderDirection: $orderDirection)';
   }
 
   @override
@@ -115,7 +171,10 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'NoteState'))
-      ..add(DiagnosticsProperty('notes', notes));
+      ..add(DiagnosticsProperty('notes', notes))
+      ..add(DiagnosticsProperty('isShowOrderDialog', isShowOrderDialog))
+      ..add(DiagnosticsProperty('noteOrder', noteOrder))
+      ..add(DiagnosticsProperty('orderDirection', orderDirection));
   }
 
   @override
@@ -123,12 +182,22 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$NoteStateImpl &&
-            const DeepCollectionEquality().equals(other._notes, _notes));
+            const DeepCollectionEquality().equals(other._notes, _notes) &&
+            (identical(other.isShowOrderDialog, isShowOrderDialog) ||
+                other.isShowOrderDialog == isShowOrderDialog) &&
+            (identical(other.noteOrder, noteOrder) ||
+                other.noteOrder == noteOrder) &&
+            (identical(other.orderDirection, orderDirection) ||
+                other.orderDirection == orderDirection));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_notes));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_notes),
+      isShowOrderDialog,
+      noteOrder,
+      orderDirection);
 
   @JsonKey(ignore: true)
   @override
@@ -138,10 +207,20 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
 }
 
 abstract class _NoteState implements NoteState {
-  const factory _NoteState({final List<Note> notes}) = _$NoteStateImpl;
+  const factory _NoteState(
+      {final List<Note> notes,
+      final bool isShowOrderDialog,
+      final NoteOrder noteOrder,
+      final OrderDirection orderDirection}) = _$NoteStateImpl;
 
   @override // @default와 required를 같이 사용하면 오류가 발생
   List<Note> get notes;
+  @override
+  bool get isShowOrderDialog;
+  @override
+  NoteOrder get noteOrder;
+  @override
+  OrderDirection get orderDirection;
   @override
   @JsonKey(ignore: true)
   _$$NoteStateImplCopyWith<_$NoteStateImpl> get copyWith =>

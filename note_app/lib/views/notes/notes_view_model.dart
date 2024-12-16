@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/domain/models/note_model.dart';
 import 'package:note_app/domain/repository/note_repository.dart';
+import 'package:note_app/domain/use_case/get_notes_use_case.dart';
+import 'package:note_app/domain/use_case/use_cases.dart';
 import 'package:note_app/views/notes/notes_event.dart';
 import 'package:note_app/views/notes/notes_state.dart';
 
 class NotesViewModel with ChangeNotifier {
   final NoteRepository repository;
+  // useCase 사용을 위해 받아오기
+  final UseCases useCases;
 
   Note? _recentlyDeletedNote;
 
@@ -17,7 +21,10 @@ class NotesViewModel with ChangeNotifier {
   // List<Note> _notes = [];
   // UnmodifiableListView<Note> get notes => UnmodifiableListView(_notes);
 
-  NotesViewModel(this.repository) {
+  NotesViewModel(
+    this.repository, {
+    required this.useCases,
+  }) {
     // 초기화 할 때 데이터를 읽어오는 함수를 호출
     _loadNotes();
   }
@@ -28,11 +35,17 @@ class NotesViewModel with ChangeNotifier {
       loadNotes: _loadNotes,
       deleteNote: _deleteNote,
       restoreNote: _restoreNote,
+      showOrderDialog: _showOrderDialog,
     );
   }
 
   Future<void> _loadNotes() async {
-    List<Note> notes = await repository.getNotes();
+    // List<Note> notes = await repository.getNotes();
+    // 기존 레파지토리가 아닌 useCase를 사용하여 데이터를 읽어옴
+    // 다른 것도 다 해줘야 하는데 우선 대표로 getNotes만 useCase를 사용해보기
+    // useCase는 딱히 다른걸 하는게 아니라 깔끔하게 뷰모델은 데이터만 가져오고 로직 정리용은 useCase에서 해주는 것이 좋음
+    List<Note> notes =
+        await useCases.getNotes.call(_state.noteOrder, _state.orderDirection);
     _state = _state.copyWith(notes: notes);
     notifyListeners();
   }
@@ -51,5 +64,10 @@ class NotesViewModel with ChangeNotifier {
 
       await _loadNotes();
     }
+  }
+
+  Future<void> _showOrderDialog() async {
+    _state = _state.copyWith(isShowOrderDialog: !_state.isShowOrderDialog);
+    notifyListeners();
   }
 }

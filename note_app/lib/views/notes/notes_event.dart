@@ -9,4 +9,5 @@ abstract class NotesEvent with _$NotesEvent {
   const factory NotesEvent.loadNotes() = LoadNotes;
   const factory NotesEvent.deleteNote(Note note) = DeleteNote;
   const factory NotesEvent.restoreNote() = RestoreNote;
+  const factory NotesEvent.showOrderDialog() = ShowOrderDialog;
 }

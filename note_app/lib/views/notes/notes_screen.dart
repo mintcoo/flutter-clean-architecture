@@ -40,6 +40,13 @@ class NoteScreen extends StatelessWidget {
     }
   }
 
+  // 정렬 버튼 누르면 정렬 모달 보이도록
+  void onClickSort(BuildContext context, viewModel) {
+    viewModel.onEvent(
+      const NotesEvent.showOrderDialog(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<NotesViewModel>();
@@ -55,9 +62,21 @@ class NoteScreen extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        bottom: state.isShowOrderDialog
+            ? PreferredSize(
+                preferredSize: Size.fromHeight(50.h),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  height: 50.h,
+                  // 정렬 관련 UI 추가
+                ),
+              )
+            : null,
         actions: [
           IconButton(
-            onPressed: () => {},
+            onPressed: () => onClickSort(context, viewModel),
             icon: const Icon(
               Icons.sort,
             ),
@@ -93,20 +112,20 @@ class NoteScreen extends StatelessWidget {
                     ),
                   );
                   // 삭제 후 복구 버튼 스낵바 띄우기
-                  // final snackBar = SnackBar(
-                  //   content: const Text('노트 삭제됨 ㅋ'),
-                  //   action: SnackBarAction(
-                  //     label: '취소',
-                  //     onPressed: () {
-                  //       viewModel.onEvent(
-                  //         const NotesEvent.restoreNote(),
-                  //       );
-                  //     },
-                  //   ),
-                  // );
-                  // ScaffoldMessenger.of(context)
-                  //   ..clearSnackBars()
-                  //   ..showSnackBar(snackBar);
+                  final snackBar = SnackBar(
+                    content: const Text('노트 삭제됨 ㅋ'),
+                    action: SnackBarAction(
+                      label: '취소',
+                      onPressed: () {
+                        viewModel.onEvent(
+                          const NotesEvent.restoreNote(),
+                        );
+                      },
+                    ),
+                  );
+                  ScaffoldMessenger.of(context)
+                    ..clearSnackBars()
+                    ..showSnackBar(snackBar);
                 },
               ),
             );

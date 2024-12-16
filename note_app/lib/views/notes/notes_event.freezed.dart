@@ -21,6 +21,7 @@ mixin _$NotesEvent {
     required TResult Function() loadNotes,
     required TResult Function(Note note) deleteNote,
     required TResult Function() restoreNote,
+    required TResult Function() showOrderDialog,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$NotesEvent {
     TResult? Function()? loadNotes,
     TResult? Function(Note note)? deleteNote,
     TResult? Function()? restoreNote,
+    TResult? Function()? showOrderDialog,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$NotesEvent {
     TResult Function()? loadNotes,
     TResult Function(Note note)? deleteNote,
     TResult Function()? restoreNote,
+    TResult Function()? showOrderDialog,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$NotesEvent {
     required TResult Function(LoadNotes value) loadNotes,
     required TResult Function(DeleteNote value) deleteNote,
     required TResult Function(RestoreNote value) restoreNote,
+    required TResult Function(ShowOrderDialog value) showOrderDialog,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$NotesEvent {
     TResult? Function(LoadNotes value)? loadNotes,
     TResult? Function(DeleteNote value)? deleteNote,
     TResult? Function(RestoreNote value)? restoreNote,
+    TResult? Function(ShowOrderDialog value)? showOrderDialog,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$NotesEvent {
     TResult Function(LoadNotes value)? loadNotes,
     TResult Function(DeleteNote value)? deleteNote,
     TResult Function(RestoreNote value)? restoreNote,
+    TResult Function(ShowOrderDialog value)? showOrderDialog,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -121,6 +127,7 @@ class _$LoadNotesImpl implements LoadNotes {
     required TResult Function() loadNotes,
     required TResult Function(Note note) deleteNote,
     required TResult Function() restoreNote,
+    required TResult Function() showOrderDialog,
   }) {
     return loadNotes();
   }
@@ -131,6 +138,7 @@ class _$LoadNotesImpl implements LoadNotes {
     TResult? Function()? loadNotes,
     TResult? Function(Note note)? deleteNote,
     TResult? Function()? restoreNote,
+    TResult? Function()? showOrderDialog,
   }) {
     return loadNotes?.call();
   }
@@ -141,6 +149,7 @@ class _$LoadNotesImpl implements LoadNotes {
     TResult Function()? loadNotes,
     TResult Function(Note note)? deleteNote,
     TResult Function()? restoreNote,
+    TResult Function()? showOrderDialog,
     required TResult orElse(),
   }) {
     if (loadNotes != null) {
@@ -155,6 +164,7 @@ class _$LoadNotesImpl implements LoadNotes {
     required TResult Function(LoadNotes value) loadNotes,
     required TResult Function(DeleteNote value) deleteNote,
     required TResult Function(RestoreNote value) restoreNote,
+    required TResult Function(ShowOrderDialog value) showOrderDialog,
   }) {
     return loadNotes(this);
   }
@@ -165,6 +175,7 @@ class _$LoadNotesImpl implements LoadNotes {
     TResult? Function(LoadNotes value)? loadNotes,
     TResult? Function(DeleteNote value)? deleteNote,
     TResult? Function(RestoreNote value)? restoreNote,
+    TResult? Function(ShowOrderDialog value)? showOrderDialog,
   }) {
     return loadNotes?.call(this);
   }
@@ -175,6 +186,7 @@ class _$LoadNotesImpl implements LoadNotes {
     TResult Function(LoadNotes value)? loadNotes,
     TResult Function(DeleteNote value)? deleteNote,
     TResult Function(RestoreNote value)? restoreNote,
+    TResult Function(ShowOrderDialog value)? showOrderDialog,
     required TResult orElse(),
   }) {
     if (loadNotes != null) {
@@ -265,6 +277,7 @@ class _$DeleteNoteImpl implements DeleteNote {
     required TResult Function() loadNotes,
     required TResult Function(Note note) deleteNote,
     required TResult Function() restoreNote,
+    required TResult Function() showOrderDialog,
   }) {
     return deleteNote(note);
   }
@@ -275,6 +288,7 @@ class _$DeleteNoteImpl implements DeleteNote {
     TResult? Function()? loadNotes,
     TResult? Function(Note note)? deleteNote,
     TResult? Function()? restoreNote,
+    TResult? Function()? showOrderDialog,
   }) {
     return deleteNote?.call(note);
   }
@@ -285,6 +299,7 @@ class _$DeleteNoteImpl implements DeleteNote {
     TResult Function()? loadNotes,
     TResult Function(Note note)? deleteNote,
     TResult Function()? restoreNote,
+    TResult Function()? showOrderDialog,
     required TResult orElse(),
   }) {
     if (deleteNote != null) {
@@ -299,6 +314,7 @@ class _$DeleteNoteImpl implements DeleteNote {
     required TResult Function(LoadNotes value) loadNotes,
     required TResult Function(DeleteNote value) deleteNote,
     required TResult Function(RestoreNote value) restoreNote,
+    required TResult Function(ShowOrderDialog value) showOrderDialog,
   }) {
     return deleteNote(this);
   }
@@ -309,6 +325,7 @@ class _$DeleteNoteImpl implements DeleteNote {
     TResult? Function(LoadNotes value)? loadNotes,
     TResult? Function(DeleteNote value)? deleteNote,
     TResult? Function(RestoreNote value)? restoreNote,
+    TResult? Function(ShowOrderDialog value)? showOrderDialog,
   }) {
     return deleteNote?.call(this);
   }
@@ -319,6 +336,7 @@ class _$DeleteNoteImpl implements DeleteNote {
     TResult Function(LoadNotes value)? loadNotes,
     TResult Function(DeleteNote value)? deleteNote,
     TResult Function(RestoreNote value)? restoreNote,
+    TResult Function(ShowOrderDialog value)? showOrderDialog,
     required TResult orElse(),
   }) {
     if (deleteNote != null) {
@@ -378,6 +396,7 @@ class _$RestoreNoteImpl implements RestoreNote {
     required TResult Function() loadNotes,
     required TResult Function(Note note) deleteNote,
     required TResult Function() restoreNote,
+    required TResult Function() showOrderDialog,
   }) {
     return restoreNote();
   }
@@ -388,6 +407,7 @@ class _$RestoreNoteImpl implements RestoreNote {
     TResult? Function()? loadNotes,
     TResult? Function(Note note)? deleteNote,
     TResult? Function()? restoreNote,
+    TResult? Function()? showOrderDialog,
   }) {
     return restoreNote?.call();
   }
@@ -398,6 +418,7 @@ class _$RestoreNoteImpl implements RestoreNote {
     TResult Function()? loadNotes,
     TResult Function(Note note)? deleteNote,
     TResult Function()? restoreNote,
+    TResult Function()? showOrderDialog,
     required TResult orElse(),
   }) {
     if (restoreNote != null) {
@@ -412,6 +433,7 @@ class _$RestoreNoteImpl implements RestoreNote {
     required TResult Function(LoadNotes value) loadNotes,
     required TResult Function(DeleteNote value) deleteNote,
     required TResult Function(RestoreNote value) restoreNote,
+    required TResult Function(ShowOrderDialog value) showOrderDialog,
   }) {
     return restoreNote(this);
   }
@@ -422,6 +444,7 @@ class _$RestoreNoteImpl implements RestoreNote {
     TResult? Function(LoadNotes value)? loadNotes,
     TResult? Function(DeleteNote value)? deleteNote,
     TResult? Function(RestoreNote value)? restoreNote,
+    TResult? Function(ShowOrderDialog value)? showOrderDialog,
   }) {
     return restoreNote?.call(this);
   }
@@ -432,6 +455,7 @@ class _$RestoreNoteImpl implements RestoreNote {
     TResult Function(LoadNotes value)? loadNotes,
     TResult Function(DeleteNote value)? deleteNote,
     TResult Function(RestoreNote value)? restoreNote,
+    TResult Function(ShowOrderDialog value)? showOrderDialog,
     required TResult orElse(),
   }) {
     if (restoreNote != null) {
@@ -443,4 +467,118 @@ class _$RestoreNoteImpl implements RestoreNote {
 
 abstract class RestoreNote implements NotesEvent {
   const factory RestoreNote() = _$RestoreNoteImpl;
+}
+
+/// @nodoc
+abstract class _$$ShowOrderDialogImplCopyWith<$Res> {
+  factory _$$ShowOrderDialogImplCopyWith(_$ShowOrderDialogImpl value,
+          $Res Function(_$ShowOrderDialogImpl) then) =
+      __$$ShowOrderDialogImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ShowOrderDialogImplCopyWithImpl<$Res>
+    extends _$NotesEventCopyWithImpl<$Res, _$ShowOrderDialogImpl>
+    implements _$$ShowOrderDialogImplCopyWith<$Res> {
+  __$$ShowOrderDialogImplCopyWithImpl(
+      _$ShowOrderDialogImpl _value, $Res Function(_$ShowOrderDialogImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ShowOrderDialogImpl implements ShowOrderDialog {
+  const _$ShowOrderDialogImpl();
+
+  @override
+  String toString() {
+    return 'NotesEvent.showOrderDialog()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ShowOrderDialogImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loadNotes,
+    required TResult Function(Note note) deleteNote,
+    required TResult Function() restoreNote,
+    required TResult Function() showOrderDialog,
+  }) {
+    return showOrderDialog();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loadNotes,
+    TResult? Function(Note note)? deleteNote,
+    TResult? Function()? restoreNote,
+    TResult? Function()? showOrderDialog,
+  }) {
+    return showOrderDialog?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loadNotes,
+    TResult Function(Note note)? deleteNote,
+    TResult Function()? restoreNote,
+    TResult Function()? showOrderDialog,
+    required TResult orElse(),
+  }) {
+    if (showOrderDialog != null) {
+      return showOrderDialog();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadNotes value) loadNotes,
+    required TResult Function(DeleteNote value) deleteNote,
+    required TResult Function(RestoreNote value) restoreNote,
+    required TResult Function(ShowOrderDialog value) showOrderDialog,
+  }) {
+    return showOrderDialog(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadNotes value)? loadNotes,
+    TResult? Function(DeleteNote value)? deleteNote,
+    TResult? Function(RestoreNote value)? restoreNote,
+    TResult? Function(ShowOrderDialog value)? showOrderDialog,
+  }) {
+    return showOrderDialog?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadNotes value)? loadNotes,
+    TResult Function(DeleteNote value)? deleteNote,
+    TResult Function(RestoreNote value)? restoreNote,
+    TResult Function(ShowOrderDialog value)? showOrderDialog,
+    required TResult orElse(),
+  }) {
+    if (showOrderDialog != null) {
+      return showOrderDialog(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ShowOrderDialog implements NotesEvent {
+  const factory ShowOrderDialog() = _$ShowOrderDialogImpl;
 }
