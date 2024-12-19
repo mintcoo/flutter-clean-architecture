@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$NoteState {
 // @default와 required를 같이 사용하면 오류가 발생
   List<Note> get notes => throw _privateConstructorUsedError;
-  bool get isShowOrderDialog => throw _privateConstructorUsedError;
+  String? get searchQuery => throw _privateConstructorUsedError;
   NoteOrder get noteOrder => throw _privateConstructorUsedError;
   OrderDirection get orderDirection => throw _privateConstructorUsedError;
 
@@ -34,7 +34,7 @@ abstract class $NoteStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<Note> notes,
-      bool isShowOrderDialog,
+      String? searchQuery,
       NoteOrder noteOrder,
       OrderDirection orderDirection});
 }
@@ -53,7 +53,7 @@ class _$NoteStateCopyWithImpl<$Res, $Val extends NoteState>
   @override
   $Res call({
     Object? notes = null,
-    Object? isShowOrderDialog = null,
+    Object? searchQuery = freezed,
     Object? noteOrder = null,
     Object? orderDirection = null,
   }) {
@@ -62,10 +62,10 @@ class _$NoteStateCopyWithImpl<$Res, $Val extends NoteState>
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as List<Note>,
-      isShowOrderDialog: null == isShowOrderDialog
-          ? _value.isShowOrderDialog
-          : isShowOrderDialog // ignore: cast_nullable_to_non_nullable
-              as bool,
+      searchQuery: freezed == searchQuery
+          ? _value.searchQuery
+          : searchQuery // ignore: cast_nullable_to_non_nullable
+              as String?,
       noteOrder: null == noteOrder
           ? _value.noteOrder
           : noteOrder // ignore: cast_nullable_to_non_nullable
@@ -88,7 +88,7 @@ abstract class _$$NoteStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {List<Note> notes,
-      bool isShowOrderDialog,
+      String? searchQuery,
       NoteOrder noteOrder,
       OrderDirection orderDirection});
 }
@@ -105,7 +105,7 @@ class __$$NoteStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? notes = null,
-    Object? isShowOrderDialog = null,
+    Object? searchQuery = freezed,
     Object? noteOrder = null,
     Object? orderDirection = null,
   }) {
@@ -114,10 +114,10 @@ class __$$NoteStateImplCopyWithImpl<$Res>
           ? _value._notes
           : notes // ignore: cast_nullable_to_non_nullable
               as List<Note>,
-      isShowOrderDialog: null == isShowOrderDialog
-          ? _value.isShowOrderDialog
-          : isShowOrderDialog // ignore: cast_nullable_to_non_nullable
-              as bool,
+      searchQuery: freezed == searchQuery
+          ? _value.searchQuery
+          : searchQuery // ignore: cast_nullable_to_non_nullable
+              as String?,
       noteOrder: null == noteOrder
           ? _value.noteOrder
           : noteOrder // ignore: cast_nullable_to_non_nullable
@@ -135,9 +135,9 @@ class __$$NoteStateImplCopyWithImpl<$Res>
 class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
   const _$NoteStateImpl(
       {final List<Note> notes = const [],
-      this.isShowOrderDialog = false,
+      this.searchQuery = null,
       this.noteOrder = NoteOrder.date,
-      this.orderDirection = OrderDirection.ascending})
+      this.orderDirection = OrderDirection.descending})
       : _notes = notes;
 
 // @default와 required를 같이 사용하면 오류가 발생
@@ -153,7 +153,7 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
 
   @override
   @JsonKey()
-  final bool isShowOrderDialog;
+  final String? searchQuery;
   @override
   @JsonKey()
   final NoteOrder noteOrder;
@@ -163,7 +163,7 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'NoteState(notes: $notes, isShowOrderDialog: $isShowOrderDialog, noteOrder: $noteOrder, orderDirection: $orderDirection)';
+    return 'NoteState(notes: $notes, searchQuery: $searchQuery, noteOrder: $noteOrder, orderDirection: $orderDirection)';
   }
 
   @override
@@ -172,7 +172,7 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
     properties
       ..add(DiagnosticsProperty('type', 'NoteState'))
       ..add(DiagnosticsProperty('notes', notes))
-      ..add(DiagnosticsProperty('isShowOrderDialog', isShowOrderDialog))
+      ..add(DiagnosticsProperty('searchQuery', searchQuery))
       ..add(DiagnosticsProperty('noteOrder', noteOrder))
       ..add(DiagnosticsProperty('orderDirection', orderDirection));
   }
@@ -183,8 +183,8 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
         (other.runtimeType == runtimeType &&
             other is _$NoteStateImpl &&
             const DeepCollectionEquality().equals(other._notes, _notes) &&
-            (identical(other.isShowOrderDialog, isShowOrderDialog) ||
-                other.isShowOrderDialog == isShowOrderDialog) &&
+            (identical(other.searchQuery, searchQuery) ||
+                other.searchQuery == searchQuery) &&
             (identical(other.noteOrder, noteOrder) ||
                 other.noteOrder == noteOrder) &&
             (identical(other.orderDirection, orderDirection) ||
@@ -195,7 +195,7 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_notes),
-      isShowOrderDialog,
+      searchQuery,
       noteOrder,
       orderDirection);
 
@@ -209,14 +209,14 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
 abstract class _NoteState implements NoteState {
   const factory _NoteState(
       {final List<Note> notes,
-      final bool isShowOrderDialog,
+      final String? searchQuery,
       final NoteOrder noteOrder,
       final OrderDirection orderDirection}) = _$NoteStateImpl;
 
   @override // @default와 required를 같이 사용하면 오류가 발생
   List<Note> get notes;
   @override
-  bool get isShowOrderDialog;
+  String? get searchQuery;
   @override
   NoteOrder get noteOrder;
   @override

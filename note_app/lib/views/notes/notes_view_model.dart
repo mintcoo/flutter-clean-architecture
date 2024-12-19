@@ -32,21 +32,27 @@ class NotesViewModel with ChangeNotifier {
   void onEvent(NotesEvent event) {
     //freezed를 사용하여 만들어진 이벤트는 when 함수를 제공
     event.when(
-      loadNotes: _loadNotes,
+      loadNotes: (query) => _loadNotes(query: query),
       deleteNote: _deleteNote,
       restoreNote: _restoreNote,
-      showOrderDialog: _showOrderDialog,
+      changeOrder: _changeOrder,
+      changeDirection: _changeDirection,
     );
   }
 
-  Future<void> _loadNotes() async {
+  Future<void> _loadNotes({String? query}) async {
     // List<Note> notes = await repository.getNotes();
     // 기존 레파지토리가 아닌 useCase를 사용하여 데이터를 읽어옴
     // 다른 것도 다 해줘야 하는데 우선 대표로 getNotes만 useCase를 사용해보기
     // useCase는 딱히 다른걸 하는게 아니라 깔끔하게 뷰모델은 데이터만 가져오고 로직 정리용은 useCase에서 해주는 것이 좋음
-    List<Note> notes =
-        await useCases.getNotes.call(_state.noteOrder, _state.orderDirection);
+    List<Note> notes = await useCases.getNotes.call(
+      _state.noteOrder,
+      _state.orderDirection,
+      query: query,
+    );
     _state = _state.copyWith(notes: notes);
+    // 검색어 저장
+    _state = _state.copyWith(searchQuery: query);
     notifyListeners();
   }
 
@@ -66,8 +72,15 @@ class NotesViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> _showOrderDialog() async {
-    _state = _state.copyWith(isShowOrderDialog: !_state.isShowOrderDialog);
-    notifyListeners();
+// 정렬 기준 중 order값 변경
+  void _changeOrder(NoteOrder noteOrder, String? query) {
+    _state = _state.copyWith(noteOrder: noteOrder);
+    _loadNotes(query: query);
+  }
+
+// 정렬 기준 중 direction 변경
+  void _changeDirection(OrderDirection orderDirection, String? query) {
+    _state = _state.copyWith(orderDirection: orderDirection);
+    _loadNotes(query: query);
   }
 }

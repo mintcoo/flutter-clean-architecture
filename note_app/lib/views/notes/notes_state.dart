@@ -11,9 +11,9 @@ class NoteState with _$NoteState {
   const factory NoteState({
     // @default와 required를 같이 사용하면 오류가 발생
     @Default([]) List<Note> notes,
-    @Default(false) bool isShowOrderDialog,
+    @Default(null) String? searchQuery,
     @Default(NoteOrder.date) NoteOrder noteOrder,
-    @Default(OrderDirection.ascending) OrderDirection orderDirection,
+    @Default(OrderDirection.descending) OrderDirection orderDirection,
     // required List<Note> notes,
   }) = _NoteState;
 }

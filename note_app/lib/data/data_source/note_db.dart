@@ -1,4 +1,6 @@
 // sqflite 라이브러리를 사용해서 데이터베이스 연동
+import 'dart:developer';
+
 import 'package:note_app/domain/models/note_model.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -23,9 +25,16 @@ class NoteDb {
     }
   }
 
-  Future<List<Note>> getNotes() async {
+  Future<List<Note>> getNotes({String? query}) async {
     // 조건 없이 쓰면 note 테이블에 있는 모든 데이터 가져옴
-    final maps = await db.query("note");
+    // 제목이나 내용에 검색어가 포함된 노트들을 찾음
+    final maps = await db.query(
+      'note',
+      where: query != null ? 'title LIKE ? OR content LIKE ?' : null,
+      whereArgs: query != null
+          ? ['%$query%', '%$query%'] // % 는 와일드카드로, 검색어가 포함된 모든 결과를 찾음
+          : null,
+    );
     return maps.map((e) => Note.fromJson(e)).toList();
   }
 

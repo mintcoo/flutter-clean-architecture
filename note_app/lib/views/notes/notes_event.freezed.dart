@@ -18,26 +18,32 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$NotesEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadNotes,
+    required TResult Function(String? query) loadNotes,
     required TResult Function(Note note) deleteNote,
     required TResult Function() restoreNote,
-    required TResult Function() showOrderDialog,
+    required TResult Function(NoteOrder noteOrder, String? query) changeOrder,
+    required TResult Function(OrderDirection orderDirection, String? query)
+        changeDirection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadNotes,
+    TResult? Function(String? query)? loadNotes,
     TResult? Function(Note note)? deleteNote,
     TResult? Function()? restoreNote,
-    TResult? Function()? showOrderDialog,
+    TResult? Function(NoteOrder noteOrder, String? query)? changeOrder,
+    TResult? Function(OrderDirection orderDirection, String? query)?
+        changeDirection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadNotes,
+    TResult Function(String? query)? loadNotes,
     TResult Function(Note note)? deleteNote,
     TResult Function()? restoreNote,
-    TResult Function()? showOrderDialog,
+    TResult Function(NoteOrder noteOrder, String? query)? changeOrder,
+    TResult Function(OrderDirection orderDirection, String? query)?
+        changeDirection,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -46,7 +52,8 @@ mixin _$NotesEvent {
     required TResult Function(LoadNotes value) loadNotes,
     required TResult Function(DeleteNote value) deleteNote,
     required TResult Function(RestoreNote value) restoreNote,
-    required TResult Function(ShowOrderDialog value) showOrderDialog,
+    required TResult Function(ChangeOrder value) changeOrder,
+    required TResult Function(ChangeDirection value) changeDirection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,7 +61,8 @@ mixin _$NotesEvent {
     TResult? Function(LoadNotes value)? loadNotes,
     TResult? Function(DeleteNote value)? deleteNote,
     TResult? Function(RestoreNote value)? restoreNote,
-    TResult? Function(ShowOrderDialog value)? showOrderDialog,
+    TResult? Function(ChangeOrder value)? changeOrder,
+    TResult? Function(ChangeDirection value)? changeDirection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -62,7 +70,8 @@ mixin _$NotesEvent {
     TResult Function(LoadNotes value)? loadNotes,
     TResult Function(DeleteNote value)? deleteNote,
     TResult Function(RestoreNote value)? restoreNote,
-    TResult Function(ShowOrderDialog value)? showOrderDialog,
+    TResult Function(ChangeOrder value)? changeOrder,
+    TResult Function(ChangeDirection value)? changeDirection,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -91,6 +100,8 @@ abstract class _$$LoadNotesImplCopyWith<$Res> {
   factory _$$LoadNotesImplCopyWith(
           _$LoadNotesImpl value, $Res Function(_$LoadNotesImpl) then) =
       __$$LoadNotesImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? query});
 }
 
 /// @nodoc
@@ -100,60 +111,90 @@ class __$$LoadNotesImplCopyWithImpl<$Res>
   __$$LoadNotesImplCopyWithImpl(
       _$LoadNotesImpl _value, $Res Function(_$LoadNotesImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = freezed,
+  }) {
+    return _then(_$LoadNotesImpl(
+      query: freezed == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$LoadNotesImpl implements LoadNotes {
-  const _$LoadNotesImpl();
+  const _$LoadNotesImpl({this.query});
+
+  @override
+  final String? query;
 
   @override
   String toString() {
-    return 'NotesEvent.loadNotes()';
+    return 'NotesEvent.loadNotes(query: $query)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadNotesImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$LoadNotesImpl &&
+            (identical(other.query, query) || other.query == query));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, query);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoadNotesImplCopyWith<_$LoadNotesImpl> get copyWith =>
+      __$$LoadNotesImplCopyWithImpl<_$LoadNotesImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadNotes,
+    required TResult Function(String? query) loadNotes,
     required TResult Function(Note note) deleteNote,
     required TResult Function() restoreNote,
-    required TResult Function() showOrderDialog,
+    required TResult Function(NoteOrder noteOrder, String? query) changeOrder,
+    required TResult Function(OrderDirection orderDirection, String? query)
+        changeDirection,
   }) {
-    return loadNotes();
+    return loadNotes(query);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadNotes,
+    TResult? Function(String? query)? loadNotes,
     TResult? Function(Note note)? deleteNote,
     TResult? Function()? restoreNote,
-    TResult? Function()? showOrderDialog,
+    TResult? Function(NoteOrder noteOrder, String? query)? changeOrder,
+    TResult? Function(OrderDirection orderDirection, String? query)?
+        changeDirection,
   }) {
-    return loadNotes?.call();
+    return loadNotes?.call(query);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadNotes,
+    TResult Function(String? query)? loadNotes,
     TResult Function(Note note)? deleteNote,
     TResult Function()? restoreNote,
-    TResult Function()? showOrderDialog,
+    TResult Function(NoteOrder noteOrder, String? query)? changeOrder,
+    TResult Function(OrderDirection orderDirection, String? query)?
+        changeDirection,
     required TResult orElse(),
   }) {
     if (loadNotes != null) {
-      return loadNotes();
+      return loadNotes(query);
     }
     return orElse();
   }
@@ -164,7 +205,8 @@ class _$LoadNotesImpl implements LoadNotes {
     required TResult Function(LoadNotes value) loadNotes,
     required TResult Function(DeleteNote value) deleteNote,
     required TResult Function(RestoreNote value) restoreNote,
-    required TResult Function(ShowOrderDialog value) showOrderDialog,
+    required TResult Function(ChangeOrder value) changeOrder,
+    required TResult Function(ChangeDirection value) changeDirection,
   }) {
     return loadNotes(this);
   }
@@ -175,7 +217,8 @@ class _$LoadNotesImpl implements LoadNotes {
     TResult? Function(LoadNotes value)? loadNotes,
     TResult? Function(DeleteNote value)? deleteNote,
     TResult? Function(RestoreNote value)? restoreNote,
-    TResult? Function(ShowOrderDialog value)? showOrderDialog,
+    TResult? Function(ChangeOrder value)? changeOrder,
+    TResult? Function(ChangeDirection value)? changeDirection,
   }) {
     return loadNotes?.call(this);
   }
@@ -186,7 +229,8 @@ class _$LoadNotesImpl implements LoadNotes {
     TResult Function(LoadNotes value)? loadNotes,
     TResult Function(DeleteNote value)? deleteNote,
     TResult Function(RestoreNote value)? restoreNote,
-    TResult Function(ShowOrderDialog value)? showOrderDialog,
+    TResult Function(ChangeOrder value)? changeOrder,
+    TResult Function(ChangeDirection value)? changeDirection,
     required TResult orElse(),
   }) {
     if (loadNotes != null) {
@@ -197,7 +241,12 @@ class _$LoadNotesImpl implements LoadNotes {
 }
 
 abstract class LoadNotes implements NotesEvent {
-  const factory LoadNotes() = _$LoadNotesImpl;
+  const factory LoadNotes({final String? query}) = _$LoadNotesImpl;
+
+  String? get query;
+  @JsonKey(ignore: true)
+  _$$LoadNotesImplCopyWith<_$LoadNotesImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -274,10 +323,12 @@ class _$DeleteNoteImpl implements DeleteNote {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadNotes,
+    required TResult Function(String? query) loadNotes,
     required TResult Function(Note note) deleteNote,
     required TResult Function() restoreNote,
-    required TResult Function() showOrderDialog,
+    required TResult Function(NoteOrder noteOrder, String? query) changeOrder,
+    required TResult Function(OrderDirection orderDirection, String? query)
+        changeDirection,
   }) {
     return deleteNote(note);
   }
@@ -285,10 +336,12 @@ class _$DeleteNoteImpl implements DeleteNote {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadNotes,
+    TResult? Function(String? query)? loadNotes,
     TResult? Function(Note note)? deleteNote,
     TResult? Function()? restoreNote,
-    TResult? Function()? showOrderDialog,
+    TResult? Function(NoteOrder noteOrder, String? query)? changeOrder,
+    TResult? Function(OrderDirection orderDirection, String? query)?
+        changeDirection,
   }) {
     return deleteNote?.call(note);
   }
@@ -296,10 +349,12 @@ class _$DeleteNoteImpl implements DeleteNote {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadNotes,
+    TResult Function(String? query)? loadNotes,
     TResult Function(Note note)? deleteNote,
     TResult Function()? restoreNote,
-    TResult Function()? showOrderDialog,
+    TResult Function(NoteOrder noteOrder, String? query)? changeOrder,
+    TResult Function(OrderDirection orderDirection, String? query)?
+        changeDirection,
     required TResult orElse(),
   }) {
     if (deleteNote != null) {
@@ -314,7 +369,8 @@ class _$DeleteNoteImpl implements DeleteNote {
     required TResult Function(LoadNotes value) loadNotes,
     required TResult Function(DeleteNote value) deleteNote,
     required TResult Function(RestoreNote value) restoreNote,
-    required TResult Function(ShowOrderDialog value) showOrderDialog,
+    required TResult Function(ChangeOrder value) changeOrder,
+    required TResult Function(ChangeDirection value) changeDirection,
   }) {
     return deleteNote(this);
   }
@@ -325,7 +381,8 @@ class _$DeleteNoteImpl implements DeleteNote {
     TResult? Function(LoadNotes value)? loadNotes,
     TResult? Function(DeleteNote value)? deleteNote,
     TResult? Function(RestoreNote value)? restoreNote,
-    TResult? Function(ShowOrderDialog value)? showOrderDialog,
+    TResult? Function(ChangeOrder value)? changeOrder,
+    TResult? Function(ChangeDirection value)? changeDirection,
   }) {
     return deleteNote?.call(this);
   }
@@ -336,7 +393,8 @@ class _$DeleteNoteImpl implements DeleteNote {
     TResult Function(LoadNotes value)? loadNotes,
     TResult Function(DeleteNote value)? deleteNote,
     TResult Function(RestoreNote value)? restoreNote,
-    TResult Function(ShowOrderDialog value)? showOrderDialog,
+    TResult Function(ChangeOrder value)? changeOrder,
+    TResult Function(ChangeDirection value)? changeDirection,
     required TResult orElse(),
   }) {
     if (deleteNote != null) {
@@ -393,10 +451,12 @@ class _$RestoreNoteImpl implements RestoreNote {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadNotes,
+    required TResult Function(String? query) loadNotes,
     required TResult Function(Note note) deleteNote,
     required TResult Function() restoreNote,
-    required TResult Function() showOrderDialog,
+    required TResult Function(NoteOrder noteOrder, String? query) changeOrder,
+    required TResult Function(OrderDirection orderDirection, String? query)
+        changeDirection,
   }) {
     return restoreNote();
   }
@@ -404,10 +464,12 @@ class _$RestoreNoteImpl implements RestoreNote {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadNotes,
+    TResult? Function(String? query)? loadNotes,
     TResult? Function(Note note)? deleteNote,
     TResult? Function()? restoreNote,
-    TResult? Function()? showOrderDialog,
+    TResult? Function(NoteOrder noteOrder, String? query)? changeOrder,
+    TResult? Function(OrderDirection orderDirection, String? query)?
+        changeDirection,
   }) {
     return restoreNote?.call();
   }
@@ -415,10 +477,12 @@ class _$RestoreNoteImpl implements RestoreNote {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadNotes,
+    TResult Function(String? query)? loadNotes,
     TResult Function(Note note)? deleteNote,
     TResult Function()? restoreNote,
-    TResult Function()? showOrderDialog,
+    TResult Function(NoteOrder noteOrder, String? query)? changeOrder,
+    TResult Function(OrderDirection orderDirection, String? query)?
+        changeDirection,
     required TResult orElse(),
   }) {
     if (restoreNote != null) {
@@ -433,7 +497,8 @@ class _$RestoreNoteImpl implements RestoreNote {
     required TResult Function(LoadNotes value) loadNotes,
     required TResult Function(DeleteNote value) deleteNote,
     required TResult Function(RestoreNote value) restoreNote,
-    required TResult Function(ShowOrderDialog value) showOrderDialog,
+    required TResult Function(ChangeOrder value) changeOrder,
+    required TResult Function(ChangeDirection value) changeDirection,
   }) {
     return restoreNote(this);
   }
@@ -444,7 +509,8 @@ class _$RestoreNoteImpl implements RestoreNote {
     TResult? Function(LoadNotes value)? loadNotes,
     TResult? Function(DeleteNote value)? deleteNote,
     TResult? Function(RestoreNote value)? restoreNote,
-    TResult? Function(ShowOrderDialog value)? showOrderDialog,
+    TResult? Function(ChangeOrder value)? changeOrder,
+    TResult? Function(ChangeDirection value)? changeDirection,
   }) {
     return restoreNote?.call(this);
   }
@@ -455,7 +521,8 @@ class _$RestoreNoteImpl implements RestoreNote {
     TResult Function(LoadNotes value)? loadNotes,
     TResult Function(DeleteNote value)? deleteNote,
     TResult Function(RestoreNote value)? restoreNote,
-    TResult Function(ShowOrderDialog value)? showOrderDialog,
+    TResult Function(ChangeOrder value)? changeOrder,
+    TResult Function(ChangeDirection value)? changeDirection,
     required TResult orElse(),
   }) {
     if (restoreNote != null) {
@@ -470,73 +537,114 @@ abstract class RestoreNote implements NotesEvent {
 }
 
 /// @nodoc
-abstract class _$$ShowOrderDialogImplCopyWith<$Res> {
-  factory _$$ShowOrderDialogImplCopyWith(_$ShowOrderDialogImpl value,
-          $Res Function(_$ShowOrderDialogImpl) then) =
-      __$$ShowOrderDialogImplCopyWithImpl<$Res>;
+abstract class _$$ChangeOrderImplCopyWith<$Res> {
+  factory _$$ChangeOrderImplCopyWith(
+          _$ChangeOrderImpl value, $Res Function(_$ChangeOrderImpl) then) =
+      __$$ChangeOrderImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({NoteOrder noteOrder, String? query});
 }
 
 /// @nodoc
-class __$$ShowOrderDialogImplCopyWithImpl<$Res>
-    extends _$NotesEventCopyWithImpl<$Res, _$ShowOrderDialogImpl>
-    implements _$$ShowOrderDialogImplCopyWith<$Res> {
-  __$$ShowOrderDialogImplCopyWithImpl(
-      _$ShowOrderDialogImpl _value, $Res Function(_$ShowOrderDialogImpl) _then)
+class __$$ChangeOrderImplCopyWithImpl<$Res>
+    extends _$NotesEventCopyWithImpl<$Res, _$ChangeOrderImpl>
+    implements _$$ChangeOrderImplCopyWith<$Res> {
+  __$$ChangeOrderImplCopyWithImpl(
+      _$ChangeOrderImpl _value, $Res Function(_$ChangeOrderImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? noteOrder = null,
+    Object? query = freezed,
+  }) {
+    return _then(_$ChangeOrderImpl(
+      null == noteOrder
+          ? _value.noteOrder
+          : noteOrder // ignore: cast_nullable_to_non_nullable
+              as NoteOrder,
+      freezed == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$ShowOrderDialogImpl implements ShowOrderDialog {
-  const _$ShowOrderDialogImpl();
+class _$ChangeOrderImpl implements ChangeOrder {
+  const _$ChangeOrderImpl(this.noteOrder, this.query);
+
+  @override
+  final NoteOrder noteOrder;
+  @override
+  final String? query;
 
   @override
   String toString() {
-    return 'NotesEvent.showOrderDialog()';
+    return 'NotesEvent.changeOrder(noteOrder: $noteOrder, query: $query)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ShowOrderDialogImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$ChangeOrderImpl &&
+            (identical(other.noteOrder, noteOrder) ||
+                other.noteOrder == noteOrder) &&
+            (identical(other.query, query) || other.query == query));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, noteOrder, query);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ChangeOrderImplCopyWith<_$ChangeOrderImpl> get copyWith =>
+      __$$ChangeOrderImplCopyWithImpl<_$ChangeOrderImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadNotes,
+    required TResult Function(String? query) loadNotes,
     required TResult Function(Note note) deleteNote,
     required TResult Function() restoreNote,
-    required TResult Function() showOrderDialog,
+    required TResult Function(NoteOrder noteOrder, String? query) changeOrder,
+    required TResult Function(OrderDirection orderDirection, String? query)
+        changeDirection,
   }) {
-    return showOrderDialog();
+    return changeOrder(noteOrder, query);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadNotes,
+    TResult? Function(String? query)? loadNotes,
     TResult? Function(Note note)? deleteNote,
     TResult? Function()? restoreNote,
-    TResult? Function()? showOrderDialog,
+    TResult? Function(NoteOrder noteOrder, String? query)? changeOrder,
+    TResult? Function(OrderDirection orderDirection, String? query)?
+        changeDirection,
   }) {
-    return showOrderDialog?.call();
+    return changeOrder?.call(noteOrder, query);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadNotes,
+    TResult Function(String? query)? loadNotes,
     TResult Function(Note note)? deleteNote,
     TResult Function()? restoreNote,
-    TResult Function()? showOrderDialog,
+    TResult Function(NoteOrder noteOrder, String? query)? changeOrder,
+    TResult Function(OrderDirection orderDirection, String? query)?
+        changeDirection,
     required TResult orElse(),
   }) {
-    if (showOrderDialog != null) {
-      return showOrderDialog();
+    if (changeOrder != null) {
+      return changeOrder(noteOrder, query);
     }
     return orElse();
   }
@@ -547,9 +655,10 @@ class _$ShowOrderDialogImpl implements ShowOrderDialog {
     required TResult Function(LoadNotes value) loadNotes,
     required TResult Function(DeleteNote value) deleteNote,
     required TResult Function(RestoreNote value) restoreNote,
-    required TResult Function(ShowOrderDialog value) showOrderDialog,
+    required TResult Function(ChangeOrder value) changeOrder,
+    required TResult Function(ChangeDirection value) changeDirection,
   }) {
-    return showOrderDialog(this);
+    return changeOrder(this);
   }
 
   @override
@@ -558,9 +667,10 @@ class _$ShowOrderDialogImpl implements ShowOrderDialog {
     TResult? Function(LoadNotes value)? loadNotes,
     TResult? Function(DeleteNote value)? deleteNote,
     TResult? Function(RestoreNote value)? restoreNote,
-    TResult? Function(ShowOrderDialog value)? showOrderDialog,
+    TResult? Function(ChangeOrder value)? changeOrder,
+    TResult? Function(ChangeDirection value)? changeDirection,
   }) {
-    return showOrderDialog?.call(this);
+    return changeOrder?.call(this);
   }
 
   @override
@@ -569,16 +679,191 @@ class _$ShowOrderDialogImpl implements ShowOrderDialog {
     TResult Function(LoadNotes value)? loadNotes,
     TResult Function(DeleteNote value)? deleteNote,
     TResult Function(RestoreNote value)? restoreNote,
-    TResult Function(ShowOrderDialog value)? showOrderDialog,
+    TResult Function(ChangeOrder value)? changeOrder,
+    TResult Function(ChangeDirection value)? changeDirection,
     required TResult orElse(),
   }) {
-    if (showOrderDialog != null) {
-      return showOrderDialog(this);
+    if (changeOrder != null) {
+      return changeOrder(this);
     }
     return orElse();
   }
 }
 
-abstract class ShowOrderDialog implements NotesEvent {
-  const factory ShowOrderDialog() = _$ShowOrderDialogImpl;
+abstract class ChangeOrder implements NotesEvent {
+  const factory ChangeOrder(final NoteOrder noteOrder, final String? query) =
+      _$ChangeOrderImpl;
+
+  NoteOrder get noteOrder;
+  String? get query;
+  @JsonKey(ignore: true)
+  _$$ChangeOrderImplCopyWith<_$ChangeOrderImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ChangeDirectionImplCopyWith<$Res> {
+  factory _$$ChangeDirectionImplCopyWith(_$ChangeDirectionImpl value,
+          $Res Function(_$ChangeDirectionImpl) then) =
+      __$$ChangeDirectionImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({OrderDirection orderDirection, String? query});
+}
+
+/// @nodoc
+class __$$ChangeDirectionImplCopyWithImpl<$Res>
+    extends _$NotesEventCopyWithImpl<$Res, _$ChangeDirectionImpl>
+    implements _$$ChangeDirectionImplCopyWith<$Res> {
+  __$$ChangeDirectionImplCopyWithImpl(
+      _$ChangeDirectionImpl _value, $Res Function(_$ChangeDirectionImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? orderDirection = null,
+    Object? query = freezed,
+  }) {
+    return _then(_$ChangeDirectionImpl(
+      null == orderDirection
+          ? _value.orderDirection
+          : orderDirection // ignore: cast_nullable_to_non_nullable
+              as OrderDirection,
+      freezed == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ChangeDirectionImpl implements ChangeDirection {
+  const _$ChangeDirectionImpl(this.orderDirection, this.query);
+
+  @override
+  final OrderDirection orderDirection;
+  @override
+  final String? query;
+
+  @override
+  String toString() {
+    return 'NotesEvent.changeDirection(orderDirection: $orderDirection, query: $query)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ChangeDirectionImpl &&
+            (identical(other.orderDirection, orderDirection) ||
+                other.orderDirection == orderDirection) &&
+            (identical(other.query, query) || other.query == query));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, orderDirection, query);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ChangeDirectionImplCopyWith<_$ChangeDirectionImpl> get copyWith =>
+      __$$ChangeDirectionImplCopyWithImpl<_$ChangeDirectionImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? query) loadNotes,
+    required TResult Function(Note note) deleteNote,
+    required TResult Function() restoreNote,
+    required TResult Function(NoteOrder noteOrder, String? query) changeOrder,
+    required TResult Function(OrderDirection orderDirection, String? query)
+        changeDirection,
+  }) {
+    return changeDirection(orderDirection, query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? query)? loadNotes,
+    TResult? Function(Note note)? deleteNote,
+    TResult? Function()? restoreNote,
+    TResult? Function(NoteOrder noteOrder, String? query)? changeOrder,
+    TResult? Function(OrderDirection orderDirection, String? query)?
+        changeDirection,
+  }) {
+    return changeDirection?.call(orderDirection, query);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? query)? loadNotes,
+    TResult Function(Note note)? deleteNote,
+    TResult Function()? restoreNote,
+    TResult Function(NoteOrder noteOrder, String? query)? changeOrder,
+    TResult Function(OrderDirection orderDirection, String? query)?
+        changeDirection,
+    required TResult orElse(),
+  }) {
+    if (changeDirection != null) {
+      return changeDirection(orderDirection, query);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadNotes value) loadNotes,
+    required TResult Function(DeleteNote value) deleteNote,
+    required TResult Function(RestoreNote value) restoreNote,
+    required TResult Function(ChangeOrder value) changeOrder,
+    required TResult Function(ChangeDirection value) changeDirection,
+  }) {
+    return changeDirection(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadNotes value)? loadNotes,
+    TResult? Function(DeleteNote value)? deleteNote,
+    TResult? Function(RestoreNote value)? restoreNote,
+    TResult? Function(ChangeOrder value)? changeOrder,
+    TResult? Function(ChangeDirection value)? changeDirection,
+  }) {
+    return changeDirection?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadNotes value)? loadNotes,
+    TResult Function(DeleteNote value)? deleteNote,
+    TResult Function(RestoreNote value)? restoreNote,
+    TResult Function(ChangeOrder value)? changeOrder,
+    TResult Function(ChangeDirection value)? changeDirection,
+    required TResult orElse(),
+  }) {
+    if (changeDirection != null) {
+      return changeDirection(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ChangeDirection implements NotesEvent {
+  const factory ChangeDirection(
+          final OrderDirection orderDirection, final String? query) =
+      _$ChangeDirectionImpl;
+
+  OrderDirection get orderDirection;
+  String? get query;
+  @JsonKey(ignore: true)
+  _$$ChangeDirectionImplCopyWith<_$ChangeDirectionImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

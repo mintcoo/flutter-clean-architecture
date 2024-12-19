@@ -11,8 +11,8 @@ class NoteRepositoryImple implements NoteRepository {
   NoteRepositoryImple(this.db);
 
   @override
-  Future<List<Note>> getNotes() async {
-    return await db.getNotes();
+  Future<List<Note>> getNotes({String? query}) async {
+    return await db.getNotes(query: query);
   }
 
   @override

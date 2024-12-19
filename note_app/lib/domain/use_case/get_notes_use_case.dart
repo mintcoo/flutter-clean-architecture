@@ -24,8 +24,11 @@ class GetNotesUseCase {
   //     final notes = await getNotes(); // 여기서 call() 메서드가 호출됨
   GetNotesUseCase(this.repository);
   Future<List<Note>> call(
-      NoteOrder noteOrder, OrderDirection orderDirection) async {
-    List<Note> notes = await repository.getNotes();
+    NoteOrder noteOrder,
+    OrderDirection orderDirection, {
+    String? query,
+  }) async {
+    List<Note> notes = await repository.getNotes(query: query);
 
     switch (noteOrder) {
       // 제목 순서로 sort
