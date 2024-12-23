@@ -37,20 +37,29 @@ class NoteListView extends StatelessWidget {
             );
           }
 
-          return ListView.builder(
-            itemCount: state.notes.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () =>
-                    _onClickCardEdit(context, viewModel, state.notes[index]),
-                child: NoteCard(
-                  note: state.notes[index],
-                  onClickDelete: () =>
-                      _handleDelete(context, viewModel, state.notes[index]),
-                ),
-              );
-            },
-          );
+          return state.notes.isEmpty
+              ? const Center(
+                  child: Text(
+                    "데이터가 없습니다",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: state.notes.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () => _onClickCardEdit(
+                          context, viewModel, state.notes[index]),
+                      child: NoteCard(
+                        note: state.notes[index],
+                        onClickDelete: () => _handleDelete(
+                            context, viewModel, state.notes[index]),
+                      ),
+                    );
+                  },
+                );
         },
       ),
     );
