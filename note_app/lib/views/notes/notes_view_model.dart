@@ -21,6 +21,15 @@ class NotesViewModel with ChangeNotifier {
   // List<Note> _notes = [];
   // UnmodifiableListView<Note> get notes => UnmodifiableListView(_notes);
 
+  // 검색, 필터, 검색어 존재여부 !! showSearchField는 전체 state로 관리해보았다. 스타일에 따라 하면 될듯
+  // bool _showSearchField = false;
+  bool _showOrderDialog = false;
+  bool _existSearchQuery = false;
+
+  // bool get showSearchField => _showSearchField;
+  bool get showOrderDialog => _showOrderDialog;
+  bool get existSearchQuery => _existSearchQuery;
+
   NotesViewModel(
     this.repository, {
     required this.useCases,
@@ -37,6 +46,7 @@ class NotesViewModel with ChangeNotifier {
       restoreNote: _restoreNote,
       changeOrder: _changeOrder,
       changeDirection: _changeDirection,
+      toggleSearchField: _toggleSearchField,
     );
   }
 
@@ -82,5 +92,18 @@ class NotesViewModel with ChangeNotifier {
   void _changeDirection(OrderDirection orderDirection, String? query) {
     _state = _state.copyWith(orderDirection: orderDirection);
     _loadNotes(query: query);
+  }
+
+  // 검색 필드 토글
+  void _toggleSearchField() {
+    _state = _state.copyWith(showSearchField: !_state.showSearchField);
+  }
+
+  void toggleOrderDialog() {
+    _showOrderDialog = !_showOrderDialog;
+  }
+
+  void setExistSearchQuery(bool value) {
+    _existSearchQuery = value;
   }
 }

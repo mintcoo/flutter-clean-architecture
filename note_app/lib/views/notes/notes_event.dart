@@ -14,4 +14,5 @@ abstract class NotesEvent with _$NotesEvent {
       ChangeOrder;
   const factory NotesEvent.changeDirection(
       OrderDirection orderDirection, String? query) = ChangeDirection;
+  const factory NotesEvent.toggleSearchField() = ToggleSearchField;
 }

@@ -21,6 +21,7 @@ mixin _$NoteState {
   String? get searchQuery => throw _privateConstructorUsedError;
   NoteOrder get noteOrder => throw _privateConstructorUsedError;
   OrderDirection get orderDirection => throw _privateConstructorUsedError;
+  bool get showSearchField => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NoteStateCopyWith<NoteState> get copyWith =>
@@ -36,7 +37,8 @@ abstract class $NoteStateCopyWith<$Res> {
       {List<Note> notes,
       String? searchQuery,
       NoteOrder noteOrder,
-      OrderDirection orderDirection});
+      OrderDirection orderDirection,
+      bool showSearchField});
 }
 
 /// @nodoc
@@ -56,6 +58,7 @@ class _$NoteStateCopyWithImpl<$Res, $Val extends NoteState>
     Object? searchQuery = freezed,
     Object? noteOrder = null,
     Object? orderDirection = null,
+    Object? showSearchField = null,
   }) {
     return _then(_value.copyWith(
       notes: null == notes
@@ -74,6 +77,10 @@ class _$NoteStateCopyWithImpl<$Res, $Val extends NoteState>
           ? _value.orderDirection
           : orderDirection // ignore: cast_nullable_to_non_nullable
               as OrderDirection,
+      showSearchField: null == showSearchField
+          ? _value.showSearchField
+          : showSearchField // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -90,7 +97,8 @@ abstract class _$$NoteStateImplCopyWith<$Res>
       {List<Note> notes,
       String? searchQuery,
       NoteOrder noteOrder,
-      OrderDirection orderDirection});
+      OrderDirection orderDirection,
+      bool showSearchField});
 }
 
 /// @nodoc
@@ -108,6 +116,7 @@ class __$$NoteStateImplCopyWithImpl<$Res>
     Object? searchQuery = freezed,
     Object? noteOrder = null,
     Object? orderDirection = null,
+    Object? showSearchField = null,
   }) {
     return _then(_$NoteStateImpl(
       notes: null == notes
@@ -126,6 +135,10 @@ class __$$NoteStateImplCopyWithImpl<$Res>
           ? _value.orderDirection
           : orderDirection // ignore: cast_nullable_to_non_nullable
               as OrderDirection,
+      showSearchField: null == showSearchField
+          ? _value.showSearchField
+          : showSearchField // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -137,7 +150,8 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
       {final List<Note> notes = const [],
       this.searchQuery = null,
       this.noteOrder = NoteOrder.date,
-      this.orderDirection = OrderDirection.descending})
+      this.orderDirection = OrderDirection.descending,
+      this.showSearchField = false})
       : _notes = notes;
 
 // @default와 required를 같이 사용하면 오류가 발생
@@ -160,10 +174,13 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
   @override
   @JsonKey()
   final OrderDirection orderDirection;
+  @override
+  @JsonKey()
+  final bool showSearchField;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'NoteState(notes: $notes, searchQuery: $searchQuery, noteOrder: $noteOrder, orderDirection: $orderDirection)';
+    return 'NoteState(notes: $notes, searchQuery: $searchQuery, noteOrder: $noteOrder, orderDirection: $orderDirection, showSearchField: $showSearchField)';
   }
 
   @override
@@ -174,7 +191,8 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
       ..add(DiagnosticsProperty('notes', notes))
       ..add(DiagnosticsProperty('searchQuery', searchQuery))
       ..add(DiagnosticsProperty('noteOrder', noteOrder))
-      ..add(DiagnosticsProperty('orderDirection', orderDirection));
+      ..add(DiagnosticsProperty('orderDirection', orderDirection))
+      ..add(DiagnosticsProperty('showSearchField', showSearchField));
   }
 
   @override
@@ -188,7 +206,9 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
             (identical(other.noteOrder, noteOrder) ||
                 other.noteOrder == noteOrder) &&
             (identical(other.orderDirection, orderDirection) ||
-                other.orderDirection == orderDirection));
+                other.orderDirection == orderDirection) &&
+            (identical(other.showSearchField, showSearchField) ||
+                other.showSearchField == showSearchField));
   }
 
   @override
@@ -197,7 +217,8 @@ class _$NoteStateImpl with DiagnosticableTreeMixin implements _NoteState {
       const DeepCollectionEquality().hash(_notes),
       searchQuery,
       noteOrder,
-      orderDirection);
+      orderDirection,
+      showSearchField);
 
   @JsonKey(ignore: true)
   @override
@@ -211,7 +232,8 @@ abstract class _NoteState implements NoteState {
       {final List<Note> notes,
       final String? searchQuery,
       final NoteOrder noteOrder,
-      final OrderDirection orderDirection}) = _$NoteStateImpl;
+      final OrderDirection orderDirection,
+      final bool showSearchField}) = _$NoteStateImpl;
 
   @override // @default와 required를 같이 사용하면 오류가 발생
   List<Note> get notes;
@@ -221,6 +243,8 @@ abstract class _NoteState implements NoteState {
   NoteOrder get noteOrder;
   @override
   OrderDirection get orderDirection;
+  @override
+  bool get showSearchField;
   @override
   @JsonKey(ignore: true)
   _$$NoteStateImplCopyWith<_$NoteStateImpl> get copyWith =>

@@ -24,6 +24,7 @@ mixin _$NotesEvent {
     required TResult Function(NoteOrder noteOrder, String? query) changeOrder,
     required TResult Function(OrderDirection orderDirection, String? query)
         changeDirection,
+    required TResult Function() toggleSearchField,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -34,6 +35,7 @@ mixin _$NotesEvent {
     TResult? Function(NoteOrder noteOrder, String? query)? changeOrder,
     TResult? Function(OrderDirection orderDirection, String? query)?
         changeDirection,
+    TResult? Function()? toggleSearchField,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -44,6 +46,7 @@ mixin _$NotesEvent {
     TResult Function(NoteOrder noteOrder, String? query)? changeOrder,
     TResult Function(OrderDirection orderDirection, String? query)?
         changeDirection,
+    TResult Function()? toggleSearchField,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -54,6 +57,7 @@ mixin _$NotesEvent {
     required TResult Function(RestoreNote value) restoreNote,
     required TResult Function(ChangeOrder value) changeOrder,
     required TResult Function(ChangeDirection value) changeDirection,
+    required TResult Function(ToggleSearchField value) toggleSearchField,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +67,7 @@ mixin _$NotesEvent {
     TResult? Function(RestoreNote value)? restoreNote,
     TResult? Function(ChangeOrder value)? changeOrder,
     TResult? Function(ChangeDirection value)? changeDirection,
+    TResult? Function(ToggleSearchField value)? toggleSearchField,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,6 +77,7 @@ mixin _$NotesEvent {
     TResult Function(RestoreNote value)? restoreNote,
     TResult Function(ChangeOrder value)? changeOrder,
     TResult Function(ChangeDirection value)? changeDirection,
+    TResult Function(ToggleSearchField value)? toggleSearchField,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -165,6 +171,7 @@ class _$LoadNotesImpl implements LoadNotes {
     required TResult Function(NoteOrder noteOrder, String? query) changeOrder,
     required TResult Function(OrderDirection orderDirection, String? query)
         changeDirection,
+    required TResult Function() toggleSearchField,
   }) {
     return loadNotes(query);
   }
@@ -178,6 +185,7 @@ class _$LoadNotesImpl implements LoadNotes {
     TResult? Function(NoteOrder noteOrder, String? query)? changeOrder,
     TResult? Function(OrderDirection orderDirection, String? query)?
         changeDirection,
+    TResult? Function()? toggleSearchField,
   }) {
     return loadNotes?.call(query);
   }
@@ -191,6 +199,7 @@ class _$LoadNotesImpl implements LoadNotes {
     TResult Function(NoteOrder noteOrder, String? query)? changeOrder,
     TResult Function(OrderDirection orderDirection, String? query)?
         changeDirection,
+    TResult Function()? toggleSearchField,
     required TResult orElse(),
   }) {
     if (loadNotes != null) {
@@ -207,6 +216,7 @@ class _$LoadNotesImpl implements LoadNotes {
     required TResult Function(RestoreNote value) restoreNote,
     required TResult Function(ChangeOrder value) changeOrder,
     required TResult Function(ChangeDirection value) changeDirection,
+    required TResult Function(ToggleSearchField value) toggleSearchField,
   }) {
     return loadNotes(this);
   }
@@ -219,6 +229,7 @@ class _$LoadNotesImpl implements LoadNotes {
     TResult? Function(RestoreNote value)? restoreNote,
     TResult? Function(ChangeOrder value)? changeOrder,
     TResult? Function(ChangeDirection value)? changeDirection,
+    TResult? Function(ToggleSearchField value)? toggleSearchField,
   }) {
     return loadNotes?.call(this);
   }
@@ -231,6 +242,7 @@ class _$LoadNotesImpl implements LoadNotes {
     TResult Function(RestoreNote value)? restoreNote,
     TResult Function(ChangeOrder value)? changeOrder,
     TResult Function(ChangeDirection value)? changeDirection,
+    TResult Function(ToggleSearchField value)? toggleSearchField,
     required TResult orElse(),
   }) {
     if (loadNotes != null) {
@@ -329,6 +341,7 @@ class _$DeleteNoteImpl implements DeleteNote {
     required TResult Function(NoteOrder noteOrder, String? query) changeOrder,
     required TResult Function(OrderDirection orderDirection, String? query)
         changeDirection,
+    required TResult Function() toggleSearchField,
   }) {
     return deleteNote(note);
   }
@@ -342,6 +355,7 @@ class _$DeleteNoteImpl implements DeleteNote {
     TResult? Function(NoteOrder noteOrder, String? query)? changeOrder,
     TResult? Function(OrderDirection orderDirection, String? query)?
         changeDirection,
+    TResult? Function()? toggleSearchField,
   }) {
     return deleteNote?.call(note);
   }
@@ -355,6 +369,7 @@ class _$DeleteNoteImpl implements DeleteNote {
     TResult Function(NoteOrder noteOrder, String? query)? changeOrder,
     TResult Function(OrderDirection orderDirection, String? query)?
         changeDirection,
+    TResult Function()? toggleSearchField,
     required TResult orElse(),
   }) {
     if (deleteNote != null) {
@@ -371,6 +386,7 @@ class _$DeleteNoteImpl implements DeleteNote {
     required TResult Function(RestoreNote value) restoreNote,
     required TResult Function(ChangeOrder value) changeOrder,
     required TResult Function(ChangeDirection value) changeDirection,
+    required TResult Function(ToggleSearchField value) toggleSearchField,
   }) {
     return deleteNote(this);
   }
@@ -383,6 +399,7 @@ class _$DeleteNoteImpl implements DeleteNote {
     TResult? Function(RestoreNote value)? restoreNote,
     TResult? Function(ChangeOrder value)? changeOrder,
     TResult? Function(ChangeDirection value)? changeDirection,
+    TResult? Function(ToggleSearchField value)? toggleSearchField,
   }) {
     return deleteNote?.call(this);
   }
@@ -395,6 +412,7 @@ class _$DeleteNoteImpl implements DeleteNote {
     TResult Function(RestoreNote value)? restoreNote,
     TResult Function(ChangeOrder value)? changeOrder,
     TResult Function(ChangeDirection value)? changeDirection,
+    TResult Function(ToggleSearchField value)? toggleSearchField,
     required TResult orElse(),
   }) {
     if (deleteNote != null) {
@@ -457,6 +475,7 @@ class _$RestoreNoteImpl implements RestoreNote {
     required TResult Function(NoteOrder noteOrder, String? query) changeOrder,
     required TResult Function(OrderDirection orderDirection, String? query)
         changeDirection,
+    required TResult Function() toggleSearchField,
   }) {
     return restoreNote();
   }
@@ -470,6 +489,7 @@ class _$RestoreNoteImpl implements RestoreNote {
     TResult? Function(NoteOrder noteOrder, String? query)? changeOrder,
     TResult? Function(OrderDirection orderDirection, String? query)?
         changeDirection,
+    TResult? Function()? toggleSearchField,
   }) {
     return restoreNote?.call();
   }
@@ -483,6 +503,7 @@ class _$RestoreNoteImpl implements RestoreNote {
     TResult Function(NoteOrder noteOrder, String? query)? changeOrder,
     TResult Function(OrderDirection orderDirection, String? query)?
         changeDirection,
+    TResult Function()? toggleSearchField,
     required TResult orElse(),
   }) {
     if (restoreNote != null) {
@@ -499,6 +520,7 @@ class _$RestoreNoteImpl implements RestoreNote {
     required TResult Function(RestoreNote value) restoreNote,
     required TResult Function(ChangeOrder value) changeOrder,
     required TResult Function(ChangeDirection value) changeDirection,
+    required TResult Function(ToggleSearchField value) toggleSearchField,
   }) {
     return restoreNote(this);
   }
@@ -511,6 +533,7 @@ class _$RestoreNoteImpl implements RestoreNote {
     TResult? Function(RestoreNote value)? restoreNote,
     TResult? Function(ChangeOrder value)? changeOrder,
     TResult? Function(ChangeDirection value)? changeDirection,
+    TResult? Function(ToggleSearchField value)? toggleSearchField,
   }) {
     return restoreNote?.call(this);
   }
@@ -523,6 +546,7 @@ class _$RestoreNoteImpl implements RestoreNote {
     TResult Function(RestoreNote value)? restoreNote,
     TResult Function(ChangeOrder value)? changeOrder,
     TResult Function(ChangeDirection value)? changeDirection,
+    TResult Function(ToggleSearchField value)? toggleSearchField,
     required TResult orElse(),
   }) {
     if (restoreNote != null) {
@@ -615,6 +639,7 @@ class _$ChangeOrderImpl implements ChangeOrder {
     required TResult Function(NoteOrder noteOrder, String? query) changeOrder,
     required TResult Function(OrderDirection orderDirection, String? query)
         changeDirection,
+    required TResult Function() toggleSearchField,
   }) {
     return changeOrder(noteOrder, query);
   }
@@ -628,6 +653,7 @@ class _$ChangeOrderImpl implements ChangeOrder {
     TResult? Function(NoteOrder noteOrder, String? query)? changeOrder,
     TResult? Function(OrderDirection orderDirection, String? query)?
         changeDirection,
+    TResult? Function()? toggleSearchField,
   }) {
     return changeOrder?.call(noteOrder, query);
   }
@@ -641,6 +667,7 @@ class _$ChangeOrderImpl implements ChangeOrder {
     TResult Function(NoteOrder noteOrder, String? query)? changeOrder,
     TResult Function(OrderDirection orderDirection, String? query)?
         changeDirection,
+    TResult Function()? toggleSearchField,
     required TResult orElse(),
   }) {
     if (changeOrder != null) {
@@ -657,6 +684,7 @@ class _$ChangeOrderImpl implements ChangeOrder {
     required TResult Function(RestoreNote value) restoreNote,
     required TResult Function(ChangeOrder value) changeOrder,
     required TResult Function(ChangeDirection value) changeDirection,
+    required TResult Function(ToggleSearchField value) toggleSearchField,
   }) {
     return changeOrder(this);
   }
@@ -669,6 +697,7 @@ class _$ChangeOrderImpl implements ChangeOrder {
     TResult? Function(RestoreNote value)? restoreNote,
     TResult? Function(ChangeOrder value)? changeOrder,
     TResult? Function(ChangeDirection value)? changeDirection,
+    TResult? Function(ToggleSearchField value)? toggleSearchField,
   }) {
     return changeOrder?.call(this);
   }
@@ -681,6 +710,7 @@ class _$ChangeOrderImpl implements ChangeOrder {
     TResult Function(RestoreNote value)? restoreNote,
     TResult Function(ChangeOrder value)? changeOrder,
     TResult Function(ChangeDirection value)? changeDirection,
+    TResult Function(ToggleSearchField value)? toggleSearchField,
     required TResult orElse(),
   }) {
     if (changeOrder != null) {
@@ -781,6 +811,7 @@ class _$ChangeDirectionImpl implements ChangeDirection {
     required TResult Function(NoteOrder noteOrder, String? query) changeOrder,
     required TResult Function(OrderDirection orderDirection, String? query)
         changeDirection,
+    required TResult Function() toggleSearchField,
   }) {
     return changeDirection(orderDirection, query);
   }
@@ -794,6 +825,7 @@ class _$ChangeDirectionImpl implements ChangeDirection {
     TResult? Function(NoteOrder noteOrder, String? query)? changeOrder,
     TResult? Function(OrderDirection orderDirection, String? query)?
         changeDirection,
+    TResult? Function()? toggleSearchField,
   }) {
     return changeDirection?.call(orderDirection, query);
   }
@@ -807,6 +839,7 @@ class _$ChangeDirectionImpl implements ChangeDirection {
     TResult Function(NoteOrder noteOrder, String? query)? changeOrder,
     TResult Function(OrderDirection orderDirection, String? query)?
         changeDirection,
+    TResult Function()? toggleSearchField,
     required TResult orElse(),
   }) {
     if (changeDirection != null) {
@@ -823,6 +856,7 @@ class _$ChangeDirectionImpl implements ChangeDirection {
     required TResult Function(RestoreNote value) restoreNote,
     required TResult Function(ChangeOrder value) changeOrder,
     required TResult Function(ChangeDirection value) changeDirection,
+    required TResult Function(ToggleSearchField value) toggleSearchField,
   }) {
     return changeDirection(this);
   }
@@ -835,6 +869,7 @@ class _$ChangeDirectionImpl implements ChangeDirection {
     TResult? Function(RestoreNote value)? restoreNote,
     TResult? Function(ChangeOrder value)? changeOrder,
     TResult? Function(ChangeDirection value)? changeDirection,
+    TResult? Function(ToggleSearchField value)? toggleSearchField,
   }) {
     return changeDirection?.call(this);
   }
@@ -847,6 +882,7 @@ class _$ChangeDirectionImpl implements ChangeDirection {
     TResult Function(RestoreNote value)? restoreNote,
     TResult Function(ChangeOrder value)? changeOrder,
     TResult Function(ChangeDirection value)? changeDirection,
+    TResult Function(ToggleSearchField value)? toggleSearchField,
     required TResult orElse(),
   }) {
     if (changeDirection != null) {
@@ -866,4 +902,133 @@ abstract class ChangeDirection implements NotesEvent {
   @JsonKey(ignore: true)
   _$$ChangeDirectionImplCopyWith<_$ChangeDirectionImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ToggleSearchFieldImplCopyWith<$Res> {
+  factory _$$ToggleSearchFieldImplCopyWith(_$ToggleSearchFieldImpl value,
+          $Res Function(_$ToggleSearchFieldImpl) then) =
+      __$$ToggleSearchFieldImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ToggleSearchFieldImplCopyWithImpl<$Res>
+    extends _$NotesEventCopyWithImpl<$Res, _$ToggleSearchFieldImpl>
+    implements _$$ToggleSearchFieldImplCopyWith<$Res> {
+  __$$ToggleSearchFieldImplCopyWithImpl(_$ToggleSearchFieldImpl _value,
+      $Res Function(_$ToggleSearchFieldImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ToggleSearchFieldImpl implements ToggleSearchField {
+  const _$ToggleSearchFieldImpl();
+
+  @override
+  String toString() {
+    return 'NotesEvent.toggleSearchField()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ToggleSearchFieldImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? query) loadNotes,
+    required TResult Function(Note note) deleteNote,
+    required TResult Function() restoreNote,
+    required TResult Function(NoteOrder noteOrder, String? query) changeOrder,
+    required TResult Function(OrderDirection orderDirection, String? query)
+        changeDirection,
+    required TResult Function() toggleSearchField,
+  }) {
+    return toggleSearchField();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? query)? loadNotes,
+    TResult? Function(Note note)? deleteNote,
+    TResult? Function()? restoreNote,
+    TResult? Function(NoteOrder noteOrder, String? query)? changeOrder,
+    TResult? Function(OrderDirection orderDirection, String? query)?
+        changeDirection,
+    TResult? Function()? toggleSearchField,
+  }) {
+    return toggleSearchField?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? query)? loadNotes,
+    TResult Function(Note note)? deleteNote,
+    TResult Function()? restoreNote,
+    TResult Function(NoteOrder noteOrder, String? query)? changeOrder,
+    TResult Function(OrderDirection orderDirection, String? query)?
+        changeDirection,
+    TResult Function()? toggleSearchField,
+    required TResult orElse(),
+  }) {
+    if (toggleSearchField != null) {
+      return toggleSearchField();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoadNotes value) loadNotes,
+    required TResult Function(DeleteNote value) deleteNote,
+    required TResult Function(RestoreNote value) restoreNote,
+    required TResult Function(ChangeOrder value) changeOrder,
+    required TResult Function(ChangeDirection value) changeDirection,
+    required TResult Function(ToggleSearchField value) toggleSearchField,
+  }) {
+    return toggleSearchField(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoadNotes value)? loadNotes,
+    TResult? Function(DeleteNote value)? deleteNote,
+    TResult? Function(RestoreNote value)? restoreNote,
+    TResult? Function(ChangeOrder value)? changeOrder,
+    TResult? Function(ChangeDirection value)? changeDirection,
+    TResult? Function(ToggleSearchField value)? toggleSearchField,
+  }) {
+    return toggleSearchField?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoadNotes value)? loadNotes,
+    TResult Function(DeleteNote value)? deleteNote,
+    TResult Function(RestoreNote value)? restoreNote,
+    TResult Function(ChangeOrder value)? changeOrder,
+    TResult Function(ChangeDirection value)? changeDirection,
+    TResult Function(ToggleSearchField value)? toggleSearchField,
+    required TResult orElse(),
+  }) {
+    if (toggleSearchField != null) {
+      return toggleSearchField(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ToggleSearchField implements NotesEvent {
+  const factory ToggleSearchField() = _$ToggleSearchFieldImpl;
 }

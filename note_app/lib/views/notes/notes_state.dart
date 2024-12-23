@@ -14,6 +14,7 @@ class NoteState with _$NoteState {
     @Default(null) String? searchQuery,
     @Default(NoteOrder.date) NoteOrder noteOrder,
     @Default(OrderDirection.descending) OrderDirection orderDirection,
+    @Default(false) bool showSearchField,
     // required List<Note> notes,
   }) = _NoteState;
 }

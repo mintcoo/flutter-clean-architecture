@@ -18,18 +18,16 @@ class NoteScreen extends StatefulWidget {
 
 class _NoteScreenState extends State<NoteScreen> {
   late final TextEditingController _searchController;
-  bool showSearchField = false;
-  bool showOrderDialog = false;
-  bool existSearchQuery = false;
+  // bool showSearchField = false;
+  // bool showOrderDialog = false;
+  // bool existSearchQuery = false;
 
   @override
   void initState() {
     _searchController = TextEditingController();
     // 컨트롤러 리스너
     _searchController.addListener(() {
-      setState(() {
-        existSearchQuery = _searchController.text.isNotEmpty;
-      }); // 텍스트가 변경될 때마다 화면 갱신
+      // 텍스트가 변경될 때마다 화면 갱신
     });
     super.initState();
   }
@@ -56,14 +54,14 @@ class _NoteScreenState extends State<NoteScreen> {
   // 정렬 버튼 누르면 정렬 모달 보이도록
   void showSortDialog(BuildContext context, viewModel) {
     setState(() {
-      showOrderDialog = !showOrderDialog;
+      viewModel.toggleOrderDialog();
     });
   }
 
   // 검색 버튼 누르면 검색창
   void showSearchBar(BuildContext context, viewModel) {
     setState(() {
-      showSearchField = !showSearchField;
+      viewModel.onEvent(const NotesEvent.toggleSearchField());
     });
   }
 
@@ -115,18 +113,21 @@ class _NoteScreenState extends State<NoteScreen> {
         },
         child: Column(
           children: [
-            if (showSearchField)
+            if (state.showSearchField)
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: SearchBar(
                   controller: _searchController,
                   trailing: [
-                    existSearchQuery
+                    viewModel.existSearchQuery
                         ? IconButton(
                             icon: const Icon(Icons.close_outlined),
                             visualDensity: VisualDensity.compact,
                             onPressed: () {
                               _searchController.clear();
+                              setState(() {
+                                viewModel.setExistSearchQuery(false);
+                              });
                             },
                           )
                         : const SizedBox.shrink(),
@@ -155,6 +156,11 @@ class _NoteScreenState extends State<NoteScreen> {
                       borderRadius: BorderRadius.circular(15.r),
                     ),
                   ),
+                  onChanged: (value) {
+                    setState(() {
+                      viewModel.setExistSearchQuery(value.isNotEmpty);
+                    });
+                  },
                   onSubmitted: (value) {
                     log('value: $value');
                     viewModel.onEvent(
@@ -167,7 +173,7 @@ class _NoteScreenState extends State<NoteScreen> {
             // 위에서 아래로 슬라이드 애니메이션 적용
             AnimatedCrossFade(
               duration: const Duration(milliseconds: 150),
-              crossFadeState: showOrderDialog
+              crossFadeState: viewModel.showOrderDialog
                   ? CrossFadeState.showFirst
                   : CrossFadeState.showSecond,
               firstChild: Container(
