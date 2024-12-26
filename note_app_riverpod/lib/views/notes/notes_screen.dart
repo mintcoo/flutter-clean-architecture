@@ -8,15 +8,16 @@ import 'package:go_router/go_router.dart';
 import 'package:note_app/views/notes/notes_event.dart';
 import 'package:note_app/views/notes/notes_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NoteScreen extends StatefulWidget {
+class NoteScreen extends ConsumerStatefulWidget {
   const NoteScreen({super.key});
 
   @override
-  State<NoteScreen> createState() => _NoteScreenState();
+  ConsumerState<NoteScreen> createState() => _NoteScreenState();
 }
 
-class _NoteScreenState extends State<NoteScreen> {
+class _NoteScreenState extends ConsumerState<NoteScreen> {
   late final TextEditingController _searchController;
   // bool showSearchField = false;
   // bool showOrderDialog = false;
@@ -24,18 +25,13 @@ class _NoteScreenState extends State<NoteScreen> {
 
   @override
   void initState() {
-    _searchController = TextEditingController();
-    // 컨트롤러 리스너
-    _searchController.addListener(() {
-      // 텍스트가 변경될 때마다 화면 갱신
-    });
     super.initState();
+    _searchController = TextEditingController();
   }
 
   @override
   void dispose() {
     _searchController.dispose();
-    _searchController.removeListener(() {});
     super.dispose();
   }
 
@@ -60,15 +56,13 @@ class _NoteScreenState extends State<NoteScreen> {
 
   // 검색 버튼 누르면 검색창
   void showSearchBar(BuildContext context, viewModel) {
-    setState(() {
-      viewModel.onEvent(const NotesEvent.toggleSearchField());
-    });
+    viewModel.onEvent(const NotesEvent.toggleSearchField());
   }
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<NotesViewModel>();
-    final state = viewModel.state;
+    final viewModel = ref.read(noteViewModelProvider.notifier);
+    final state = ref.watch(noteViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -111,231 +105,238 @@ class _NoteScreenState extends State<NoteScreen> {
           );
           _searchController.clear();
         },
-        child: Column(
-          children: [
-            if (state.showSearchField)
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: SearchBar(
-                  controller: _searchController,
-                  trailing: [
-                    viewModel.existSearchQuery
-                        ? IconButton(
-                            icon: const Icon(Icons.close_outlined),
-                            visualDensity: VisualDensity.compact,
-                            onPressed: () {
-                              _searchController.clear();
-                              setState(() {
-                                viewModel.setExistSearchQuery(false);
-                              });
-                            },
-                          )
-                        : const SizedBox.shrink(),
-                    IconButton(
-                      icon: const Icon(Icons.search),
-                      visualDensity: VisualDensity.compact,
-                      onPressed: () {
-                        viewModel.onEvent(
-                          NotesEvent.loadNotes(query: _searchController.text),
-                        );
-                      },
+        child: state.when(
+          loading: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          error: (error, stackTrace) => Center(
+            child: Text('에러가 발생했습니다: $error'),
+          ),
+          data: (notesState) => Column(
+            children: [
+              if (notesState.showSearchField)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: SearchBar(
+                    controller: _searchController,
+                    trailing: [
+                      viewModel.existSearchQuery
+                          ? IconButton(
+                              icon: const Icon(Icons.close_outlined),
+                              visualDensity: VisualDensity.compact,
+                              onPressed: () {
+                                _searchController.clear();
+                                setState(() {
+                                  viewModel.setExistSearchQuery(false);
+                                });
+                              },
+                            )
+                          : const SizedBox.shrink(),
+                      IconButton(
+                        icon: const Icon(Icons.search),
+                        visualDensity: VisualDensity.compact,
+                        onPressed: () {
+                          viewModel.onEvent(
+                            NotesEvent.loadNotes(query: _searchController.text),
+                          );
+                        },
+                      ),
+                    ],
+                    backgroundColor: const WidgetStatePropertyAll(Colors.white),
+                    padding: WidgetStatePropertyAll(
+                      EdgeInsets.only(
+                        left: 12.w,
+                        right: 6.w,
+                      ),
                     ),
-                  ],
-                  backgroundColor: const WidgetStatePropertyAll(Colors.white),
-                  padding: WidgetStatePropertyAll(
-                    EdgeInsets.only(
-                      left: 12.w,
-                      right: 6.w,
+                    constraints: BoxConstraints(
+                      minHeight: 40.h,
                     ),
-                  ),
-                  constraints: BoxConstraints(
-                    minHeight: 40.h,
-                  ),
-                  shape: WidgetStateProperty.all(
-                    ContinuousRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.r),
+                    shape: WidgetStateProperty.all(
+                      ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.r),
+                      ),
                     ),
+                    onChanged: (value) {
+                      setState(() {
+                        viewModel.setExistSearchQuery(value.isNotEmpty);
+                      });
+                    },
+                    onSubmitted: (value) {
+                      log('value: $value');
+                      viewModel.onEvent(
+                        NotesEvent.loadNotes(query: value),
+                      );
+                    },
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      viewModel.setExistSearchQuery(value.isNotEmpty);
-                    });
-                  },
-                  onSubmitted: (value) {
-                    log('value: $value');
-                    viewModel.onEvent(
-                      NotesEvent.loadNotes(query: value),
-                    );
-                  },
                 ),
-              ),
 
-            // 위에서 아래로 슬라이드 애니메이션 적용
-            AnimatedCrossFade(
-              duration: const Duration(milliseconds: 150),
-              crossFadeState: viewModel.showOrderDialog
-                  ? CrossFadeState.showFirst
-                  : CrossFadeState.showSecond,
-              firstChild: Container(
-                padding: EdgeInsets.all(8.r),
-                decoration: const BoxDecoration(
-                  color: Colors.black,
+              // 위에서 아래로 슬라이드 애니메이션 적용
+              AnimatedCrossFade(
+                duration: const Duration(milliseconds: 150),
+                crossFadeState: viewModel.showOrderDialog
+                    ? CrossFadeState.showFirst
+                    : CrossFadeState.showSecond,
+                firstChild: Container(
+                  padding: EdgeInsets.all(8.r),
+                  decoration: const BoxDecoration(
+                    color: Colors.black,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              visualDensity: VisualDensity.compact,
+                              title: const Text(
+                                'Title',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              leading: Radio<NoteOrder>(
+                                value: NoteOrder.title,
+                                groupValue: notesState.noteOrder,
+                                onChanged: (NoteOrder? value) {
+                                  viewModel.onEvent(
+                                    NotesEvent.changeOrder(
+                                      value!,
+                                      _searchController.text,
+                                    ),
+                                  );
+                                },
+                                fillColor: WidgetStateProperty.all(primRose),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              visualDensity: VisualDensity.compact,
+                              title: const Text(
+                                'Date',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              leading: Radio<NoteOrder>(
+                                value: NoteOrder.date,
+                                groupValue: notesState.noteOrder,
+                                onChanged: (NoteOrder? value) {
+                                  viewModel.onEvent(
+                                    NotesEvent.changeOrder(
+                                      value!,
+                                      _searchController.text,
+                                    ),
+                                  );
+                                },
+                                fillColor: WidgetStateProperty.all(primRose),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              visualDensity: VisualDensity.compact,
+                              title: const Text(
+                                'Color',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              leading: Radio<NoteOrder>(
+                                value: NoteOrder.color,
+                                groupValue: notesState.noteOrder,
+                                onChanged: (NoteOrder? value) {
+                                  viewModel.onEvent(
+                                    NotesEvent.changeOrder(
+                                      value!,
+                                      _searchController.text,
+                                    ),
+                                  );
+                                },
+                                fillColor: WidgetStateProperty.all(primRose),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              visualDensity: VisualDensity.compact,
+                              title: const Text(
+                                'Ascending',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              leading: Radio<OrderDirection>(
+                                value: OrderDirection.ascending,
+                                groupValue: notesState.orderDirection,
+                                onChanged: (OrderDirection? value) {
+                                  viewModel.onEvent(
+                                    NotesEvent.changeDirection(
+                                      value!,
+                                      _searchController.text,
+                                    ),
+                                  );
+                                },
+                                fillColor: WidgetStateProperty.all(primRose),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              visualDensity: VisualDensity.compact,
+                              title: const Text(
+                                'Descending',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              leading: Radio<OrderDirection>(
+                                value: OrderDirection.descending,
+                                groupValue: notesState.orderDirection,
+                                onChanged: (OrderDirection? value) {
+                                  viewModel.onEvent(
+                                    NotesEvent.changeDirection(
+                                      value!,
+                                      _searchController.text,
+                                    ),
+                                  );
+                                },
+                                fillColor: WidgetStateProperty.all(primRose),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            visualDensity: VisualDensity.compact,
-                            title: const Text(
-                              'Title',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            leading: Radio<NoteOrder>(
-                              value: NoteOrder.title,
-                              groupValue: state.noteOrder,
-                              onChanged: (NoteOrder? value) {
-                                viewModel.onEvent(
-                                  NotesEvent.changeOrder(
-                                    value!,
-                                    _searchController.text,
-                                  ),
-                                );
-                              },
-                              fillColor: WidgetStateProperty.all(primRose),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            visualDensity: VisualDensity.compact,
-                            title: const Text(
-                              'Date',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            leading: Radio<NoteOrder>(
-                              value: NoteOrder.date,
-                              groupValue: state.noteOrder,
-                              onChanged: (NoteOrder? value) {
-                                viewModel.onEvent(
-                                  NotesEvent.changeOrder(
-                                    value!,
-                                    _searchController.text,
-                                  ),
-                                );
-                              },
-                              fillColor: WidgetStateProperty.all(primRose),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            visualDensity: VisualDensity.compact,
-                            title: const Text(
-                              'Color',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            leading: Radio<NoteOrder>(
-                              value: NoteOrder.color,
-                              groupValue: state.noteOrder,
-                              onChanged: (NoteOrder? value) {
-                                viewModel.onEvent(
-                                  NotesEvent.changeOrder(
-                                    value!,
-                                    _searchController.text,
-                                  ),
-                                );
-                              },
-                              fillColor: WidgetStateProperty.all(primRose),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            visualDensity: VisualDensity.compact,
-                            title: const Text(
-                              'Ascending',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            leading: Radio<OrderDirection>(
-                              value: OrderDirection.ascending,
-                              groupValue: state.orderDirection,
-                              onChanged: (OrderDirection? value) {
-                                viewModel.onEvent(
-                                  NotesEvent.changeDirection(
-                                    value!,
-                                    _searchController.text,
-                                  ),
-                                );
-                              },
-                              fillColor: WidgetStateProperty.all(primRose),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            visualDensity: VisualDensity.compact,
-                            title: const Text(
-                              'Descending',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            leading: Radio<OrderDirection>(
-                              value: OrderDirection.descending,
-                              groupValue: state.orderDirection,
-                              onChanged: (OrderDirection? value) {
-                                viewModel.onEvent(
-                                  NotesEvent.changeDirection(
-                                    value!,
-                                    _searchController.text,
-                                  ),
-                                );
-                              },
-                              fillColor: WidgetStateProperty.all(primRose),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                secondChild: Container(
+                  height: 0,
                 ),
               ),
-              secondChild: Container(
-                height: 0,
+              const Expanded(
+                child: NoteListView(),
               ),
-            ),
-            const Expanded(
-              child: NoteListView(),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      // 오른쪽 아래 떠있는 버튼
+      ), // 오른쪽 아래  떠있는 버튼
     );
   }
 }

@@ -4,29 +4,33 @@ import 'package:note_app/di/provider_setup.dart';
 import 'package:note_app/router.dart';
 import 'package:note_app/ui/colors.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
   // Flutter 바인딩 초기화
   // Flutter 앱이 네이티브 기능을 사용할 수 있도록(화면을 그리기 전에 세팅되는 것들) "준비 운동"을 시키는 과정
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 프로바이더 설정
-  final providers = await getProviders();
+  // // 프로바이더 설정
+  // final providers = await getProviders();
 
+  // runApp(
+  //   MultiProvider(
+  //     providers: providers,
+  //     child: const MyApp(),
+  //   ),
+  // );
   runApp(
-    MultiProvider(
-      providers: providers,
-      child: const MyApp(),
-    ),
+    const ProviderScope(child: MyApp()),
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (context, child) => MaterialApp.router(

@@ -10,8 +10,9 @@ import 'package:note_app/ui/colors.dart';
 import 'package:note_app/views/add_edit_note/add_edit_note_event.dart';
 import 'package:note_app/views/add_edit_note/add_edit_note_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddEditNoteScreen extends StatefulWidget {
+class AddEditNoteScreen extends ConsumerStatefulWidget {
   // 노트를 클릭해서 수정할 때 받음
   final Note? note;
   const AddEditNoteScreen({super.key, this.note});
@@ -28,10 +29,10 @@ class AddEditNoteScreen extends StatefulWidget {
   ];
 
   @override
-  State<AddEditNoteScreen> createState() => _AddEditNoteScreenState();
+  ConsumerState<AddEditNoteScreen> createState() => _AddEditNoteScreenState();
 }
 
-class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
+class _AddEditNoteScreenState extends ConsumerState<AddEditNoteScreen> {
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
   StreamSubscription? _streamSubscription;
